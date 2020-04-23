@@ -97,7 +97,6 @@ namespace TunnelEvacuationV1
                 }
                 catch(FormatException ex1)
                 {
-                    Console.WriteLine("Thrown");
                     DataBase.vehicle_num = 50;
                 }
             }
