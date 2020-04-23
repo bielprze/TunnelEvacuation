@@ -57,7 +57,7 @@ namespace TunnelEvacuationV1
             {
                 try
                 {
-                    DataBase.evac_time = Int32.Parse(evac_time_text.ToString());
+                    DataBase.evac_time = Int32.Parse(evac_time_text.Text);
                 }
                 catch (FormatException ex1)
                 {
@@ -75,7 +75,7 @@ namespace TunnelEvacuationV1
             {
                 try
                 {
-                    DataBase.interval = Int32.Parse(exit_text.ToString());
+                    DataBase.interval = Int32.Parse(exit_text.Text);
                 }
                 catch (FormatException ex1)
                 {
@@ -93,7 +93,8 @@ namespace TunnelEvacuationV1
             {
                 try
                 {
-                    DataBase.vehicle_num = Int32.Parse(vehicle_num_text.ToString());
+                    String txtbox = vehicle_num_text.Text;
+                    DataBase.vehicle_num = int.Parse(txtbox);
                 }
                 catch(FormatException ex1)
                 {
