@@ -54,6 +54,6 @@
         </DockPanel>
         <Button Grid.Column="2" Grid.Row="5" Name="vehicle_group_ok" Content="OK" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" IsEnabled="True"/>
 
-        <Button Grid.Column="1" Grid.Row="6" Name="Next_stage" Content="Zaakceptuj i przejdź dalej" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Grid.Column="1" Grid.Row="6" Name="Next_stage" Content="Zaakceptuj i przejdź dalej" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10"/>
     </Grid>
 </Window>
