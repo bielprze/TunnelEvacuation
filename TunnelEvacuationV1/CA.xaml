@@ -8,8 +8,8 @@
         Title="CA" Height="650" Width="800">
 
     <ScrollViewer HorizontalScrollBarVisibility="Auto">
-        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="stack">
-        </StackPanel> 
+        <Image VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="stack">
+        </Image> 
        
         
     </ScrollViewer>

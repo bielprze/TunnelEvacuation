@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -205,66 +207,36 @@ namespace TunnelEvacuationV1
 
             }
 
+
+
+
+
+
+
+
             Draw_Net();
             Start_sim();
         }
 
         public void Draw_Net()
         {
-            Line line_top, line_bottom;
+            int column = 5096;
+            int row = 128;
+            Bitmap B = new Bitmap(5096, 128);
+            for (int i = 0; i <= column-1; i++)
+                for (int j = 0; j <= row-1; j++)
+                    B.SetPixel(i, j, System.Drawing.Color.White);
 
-            line_top = new Line();
-            line_top.Stroke = System.Windows.Media.Brushes.Black;
-            line_top.X1 = 10;
-            line_top.X2 = 5010;
-            line_top.Y1 = 200;
-            line_top.Y2 = 200;
 
-            line_bottom = new Line();
-            line_bottom.Stroke = System.Windows.Media.Brushes.Black;
-            line_bottom.X1 = 10;
-            line_bottom.X2 = 5010;
-            line_bottom.Y1 = 225;
-            line_bottom.Y2 = 225;
-
-            line_top.StrokeThickness = 1;
-            line_bottom.StrokeThickness = 1;
-            stack.Children.Add(line_top);
-            stack.Children.Add(line_bottom);
-
-            Grid CAgrid = new Grid();
-
-            ColumnDefinition[] cols = new ColumnDefinition[5000];
-            RowDefinition[] rows = new RowDefinition[30];
-
-            for(int i=0; i<5000; i++)
+            for (int i = 1; i <= column - 1; i++)
             {
-
+                B.SetPixel(i, 10, System.Drawing.Color.Black);
+                B.SetPixel(i, 41, System.Drawing.Color.Black);
             }
 
             for (int i = 0; i < tirs.Length; i++)
             {
 
-                //System.Windows.Point Point1 = new System.Windows.Point(tirs[i].x, tirs[i].y);
-                //System.Windows.Point Point2 = new System.Windows.Point(tirs[i].x + 40, tirs[i].y);
-                //System.Windows.Point Point3 = new System.Windows.Point(tirs[i].x + 40, tirs[i].y+6);
-                //System.Windows.Point Point4 = new System.Windows.Point(tirs[i].x, tirs[i].y + 6);
-
-                //PointCollection myPointCollection = new PointCollection();
-
-                //myPointCollection.Add(Point1);
-                //myPointCollection.Add(Point2);
-                //myPointCollection.Add(Point3);
-                //myPointCollection.Add(Point4);
-
-                //veh.Points = myPointCollection;
-                //stack.Children.Add(veh);
-
-
-                
-
-
-                Console.WriteLine("wsp: " + tirs[i].x.ToString() + ", " + tirs[i].y.ToString());
             }
 
 
@@ -272,16 +244,34 @@ namespace TunnelEvacuationV1
             {
 
             }
-            for (int i=0; i< bikes.Length; i++)
+            for (int i = 0; i < bikes.Length; i++)
             {
 
             }
+
+            stack.Source = BitmapToImageSource(B);
 
         }
 
         void Start_sim()
         {
 
+        }
+
+        BitmapImage BitmapToImageSource(Bitmap bitmap)
+        {
+            using (MemoryStream memory = new MemoryStream())
+            {
+                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
+                memory.Position = 0;
+                BitmapImage bitmapimage = new BitmapImage();
+                bitmapimage.BeginInit();
+                bitmapimage.StreamSource = memory;
+                bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapimage.EndInit();
+
+                return bitmapimage;
+            }
         }
 
     }
