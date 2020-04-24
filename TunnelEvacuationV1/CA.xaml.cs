@@ -29,17 +29,6 @@ namespace TunnelEvacuationV1
         {
             InitializeComponent();
 
-            Console.WriteLine("Start-----------------------------------------------");
-
-            Console.WriteLine("Tirt:-----------------------------------------------");
-            Console.WriteLine(DataBase.tir.ToString());
-
-            Console.WriteLine("Auta:-----------------------------------------------");
-            Console.WriteLine(DataBase.car.ToString());
-
-
-            Console.WriteLine("Motory:-----------------------------------------------");
-            Console.WriteLine(DataBase.bike.ToString());
 
 
             int[] line1 = new int[625];
@@ -59,18 +48,18 @@ namespace TunnelEvacuationV1
                 {
                     temp = random.Next(0, 625);
 
-                    for (int j = 0; j > 6; j++)
+                    for (int j = 0; j < 6; j++)
                     {
                         switch(line_no)
                         {
                             case 0:
-                                if(line1[temp+j] == 1)
+                                if(temp+j < 625 && line1[temp+j] == 1)
                                 {
                                     flag = false;
                                 }
                                 break;
                             case 1:
-                                if (line2[temp + j] == 1)
+                                if (temp + j < 625 && line2[temp + j] == 1)
                                 {
                                     flag = false;
                                 }
@@ -83,13 +72,13 @@ namespace TunnelEvacuationV1
                         switch (line_no)
                         {
                             case 0:
-                                for (int j = 0; j > 6; j++)
+                                for (int j = 0; j < 6; j++)
                                 {
                                     line1[temp + j] = 1;
                                 }
                                 break;
                             case 1:
-                                for (int j = 0; j > 6; j++)
+                                for (int j = 0; j < 6; j++)
                                 {
                                     line2[temp + j] = 1;
                                 }
@@ -100,18 +89,12 @@ namespace TunnelEvacuationV1
 
                 }
 
-                tirs[i] = new Vehicle(0, temp*8, 5+(line_no*10)+ random.Next(1, 4) ); // odległość (w komórkach) od ściany + przesunięcie o pas + odległość od krawędzi pasa
+                tirs[i] = new Vehicle(0, temp*8, 5+(line_no*10)+ random.Next(1, 3) ); // odległość (w komórkach) od ściany + przesunięcie o pas + odległość od krawędzi pasa
 
 
             }
 
-            Console.WriteLine("Tiry Out-----------------------------------------------");
-            Console.WriteLine(tirs.Length.ToString());
-            for (int k = 0; k < tirs.Length; k++)
-            {
-                //Console.WriteLine("wsp: "+ tirs[k].x.ToString() +", "+ tirs[k].y.ToString());
-            }
-
+            flag = true;
             for (int i = 0; i < DataBase.car; i++)
             {
                 line_no = random.Next(0, 2);
@@ -119,18 +102,18 @@ namespace TunnelEvacuationV1
                 {
                     temp = random.Next(0, 625);
 
-                    for (int j = 0; j > 2; j++)
+                    for (int j = 0; j < 2; j++)
                     {
                         switch (line_no)
                         {
                             case 0:
-                                if (line1[temp + j] == 1)
+                                if (temp + j < 625 && line1[temp + j] == 1)
                                 {
                                     flag = false;
                                 }
                                 break;
                             case 1:
-                                if (line2[temp + j] == 1)
+                                if (temp + j < 625 && line2[temp + j] == 1)
                                 {
                                     flag = false;
                                 }
@@ -143,13 +126,13 @@ namespace TunnelEvacuationV1
                         switch (line_no)
                         {
                             case 0:
-                                for (int j = 0; j > 2; j++)
+                                for (int j = 0; j < 2; j++)
                                 {
                                     line1[temp + j] = 1;
                                 }
                                 break;
                             case 1:
-                                for (int j = 0; j > 2; j++)
+                                for (int j = 0; j < 2; j++)
                                 {
                                     line2[temp + j] = 1;
                                 }
@@ -160,9 +143,9 @@ namespace TunnelEvacuationV1
 
                 }
 
-                cars[i] = new Vehicle(1, temp * 8, 5 + (line_no * 10) + random.Next(1, 4)); // odległość (w komórkach) od ściany + przesunięcie o pas + odległość od krawędzi pasa
+                cars[i] = new Vehicle(1, temp * 8, 5 + (line_no * 10) + random.Next(1, 3)); // odległość (w komórkach) od ściany + przesunięcie o pas + odległość od krawędzi pasa
             }
-
+            flag = true;
             for (int i = 0; i < DataBase.bike; i++)
             {
                 line_no = random.Next(0, 2);
@@ -195,7 +178,7 @@ namespace TunnelEvacuationV1
                                     line1[temp] = 1;
                                     break;
                             case 1:
-                                    line2[temp] = +1;
+                                    line2[temp] = 1;
                                 break;
                         }
                         break;
@@ -206,11 +189,6 @@ namespace TunnelEvacuationV1
                 bikes[i] = new Vehicle(1, temp * 8, 5 + (line_no * 10) + random.Next(1, 4)); // odległość (w komórkach) od ściany + przesunięcie o pas + odległość od krawędzi pasa
 
             }
-
-
-
-
-
 
 
 
@@ -236,17 +214,35 @@ namespace TunnelEvacuationV1
 
             for (int i = 0; i < tirs.Length; i++)
             {
-
+                for (int j = 0; j < 41; j++)
+                {
+                    B.SetPixel(tirs[i].x + j, tirs[i].y + 10, System.Drawing.Color.Black); //(x,y)
+                    B.SetPixel(tirs[i].x + j, tirs[i].y + 1 + 10, System.Drawing.Color.Black); //(x,y)
+                    B.SetPixel(tirs[i].x + j, tirs[i].y + 2 + 10, System.Drawing.Color.Black); //(x,y)
+                    B.SetPixel(tirs[i].x + j, tirs[i].y + 3 + 10, System.Drawing.Color.Black); //(x,y)
+                    B.SetPixel(tirs[i].x + j, tirs[i].y + 4 + 10, System.Drawing.Color.Black); //(x,y)
+                    B.SetPixel(tirs[i].x + j, tirs[i].y + 5 + 10, System.Drawing.Color.Black); //(x,y)
+                }
             }
 
 
             for (int i = 0; i < cars.Length; i++)
             {
-
+                for (int j = 0; j < 12; j++)
+                {
+                    B.SetPixel(cars[i].x + j, cars[i].y + 10, System.Drawing.Color.Black); //(x,y)
+                    B.SetPixel(cars[i].x + j, cars[i].y + 1 + 10, System.Drawing.Color.Black); //(x,y)
+                    B.SetPixel(cars[i].x + j, cars[i].y + 2 + 10, System.Drawing.Color.Black); //(x,y)
+                    B.SetPixel(cars[i].x + j, cars[i].y + 3 + 10, System.Drawing.Color.Black); //(x,y)
+                }
             }
             for (int i = 0; i < bikes.Length; i++)
             {
-
+                for (int j = 0; j < 6; j++)
+                {
+                    B.SetPixel(bikes[i].x + j, bikes[i].y + 10, System.Drawing.Color.Black); //(x,y)
+                    B.SetPixel(bikes[i].x + j, bikes[i].y + 1 + 10, System.Drawing.Color.Black); //(x,y)
+                }
             }
 
             stack.Source = BitmapToImageSource(B);
