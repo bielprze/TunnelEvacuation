@@ -93,12 +93,10 @@ namespace TunnelEvacuationV1
             {
                 try
                 {
-                    String txtbox = vehicle_num_text.Text;
-                    DataBase.vehicle_num = int.Parse(txtbox);
+                    DataBase.vehicle_num = Int32.Parse(vehicle_num_text.Text);
                 }
                 catch(FormatException ex1)
                 {
-                    Console.WriteLine("Thrown");
                     DataBase.vehicle_num = 50;
                 }
             }
