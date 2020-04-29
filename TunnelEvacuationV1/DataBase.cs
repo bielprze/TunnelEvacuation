@@ -20,6 +20,8 @@ namespace TunnelEvacuationV1
         public static double car_percent = 0.4;
         public static double bike_percent = 0.1;
 
+        public static int id_list = 0;
+
         public static void evaluate_vehicles()
         {
 

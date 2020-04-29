@@ -19,10 +19,12 @@ namespace TunnelEvacuationV1
         public int y;
         int passenger;
         int passengers_reaction_time;
+        int ID;
 
         public Vehicle(int en, int a, int b)
         {
             vehicle_type = (vehicle_types)en;
+            ID = DataBase.id_list + 1;
             fill_passangers();
             reaction_time();
             location(a, b);

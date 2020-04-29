@@ -10,7 +10,7 @@ namespace TunnelEvacuationV1
     {
         int panic;
         double speed;
-        int state; 
+        int state; // 0 - pusta, 1 - pieszy, 2 - przeszkoda
         public Cell(int p, double sp, int st)
         {
             panic = p;
@@ -18,5 +18,18 @@ namespace TunnelEvacuationV1
             state = st;
         }
 
+        public Cell(int st)
+        {
+            state = st;
+        }
+
+        public int getState()
+        {
+            return this.state;
+        }
+        public void setState(int st)
+        {
+            this.state = st;
+        }
     }
 }

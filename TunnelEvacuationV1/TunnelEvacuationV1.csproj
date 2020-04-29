@@ -56,7 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Pedestrian.cs" />
+    <Compile Include="Cell.cs" />
     <Compile Include="Vehicle.cs" />
     <Page Include="CA.xaml">
       <SubType>Designer</SubType>

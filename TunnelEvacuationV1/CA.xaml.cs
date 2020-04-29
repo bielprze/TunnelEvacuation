@@ -25,14 +25,20 @@ namespace TunnelEvacuationV1
         Vehicle[] tirs = new Vehicle[DataBase.tir];
         Vehicle[] cars = new Vehicle[DataBase.car];
         Vehicle[] bikes = new Vehicle[DataBase.bike];
+
+        Cell[,] automat = new Cell[30, 5000];
+
+        
         public CA()
         {
             InitializeComponent();
 
+            for(int i=0; i<30; i++)
+                for(int j=0; j<5000; j++)
+                {
+                    automat[i, j] = new Cell(0);
+                }
 
-
-            int[] line1 = new int[625];
-            int[] line2 = new int[625];
 
             Random random = new Random();
             int temp;
@@ -40,7 +46,146 @@ namespace TunnelEvacuationV1
             bool ready = false;
             bool flag = true;
 
-            Console.WriteLine("Tiry -----------------------------------------------");
+            int a, b;
+
+            for (int i = 0; i < DataBase.tir; i++)
+            {
+                flag = true;
+                while (true)
+                {
+                    a = 4 + (random.Next(0, 2) * 10) + random.Next(0, 3);
+                    b = random.Next(10, 4950);
+                    for (int j = 0; j < 44; j++)
+                        for (int k = 0; k < 6; k++)
+                            if (automat[a + k, b + j].getState() != 0)
+                            {
+                                flag = false;
+                            }
+                    if(flag)
+                    {
+                        for (int j = 0; j < 42; j++)
+                            for (int k = 0; k < 6; k++)
+                                automat[a + k, b + j].setState(2);
+                        tirs[i] = new Vehicle(0, a, b);
+                        break;
+                    }
+                    flag = true;
+                }
+
+            }
+
+            for (int i = 0; i < DataBase.car; i++)
+            {
+                flag = true;
+                while (true)
+                {
+                    a = 4 + (random.Next(0, 2) * 10) + random.Next(0, 3);
+                    b = random.Next(10, 4950);
+                    for (int j = 0; j < 13; j++)
+                        for (int k = 0; k < 4; k++)
+                            if (automat[a + k, b + j].getState() != 0)
+                            {
+                                flag = false;
+                            }
+                    if (flag)
+                    {
+                        for (int j = 0; j < 11; j++)
+                            for (int k = 0; k < 4; k++)
+                                automat[a + k, b + j].setState(2);
+                        cars[i] = new Vehicle(0, a, b);
+                        break;
+                    }
+                    flag = true;
+                }
+
+            }
+
+
+            for (int i = 0; i < DataBase.bike; i++)
+            {
+                flag = true;
+                while (true)
+                {
+                    a = 4 + (random.Next(0, 2) * 10) + random.Next(0, 3);
+                    b = random.Next(10, 4950);
+                    for (int j = 0; j < 7; j++)
+                        for (int k = 0; k < 2; k++)
+                            if (automat[a + k, b + j].getState() != 0)
+                            {
+                                flag = false;
+                            }
+                    if (flag)
+                    {
+                        for (int j = 0; j < 5; j++)
+                            for (int k = 0; k < 2; k++)
+                                automat[a + k, b + j].setState(2);
+                        bikes[i] = new Vehicle(0, a, b);
+                        break;
+                    }
+                    flag = true;
+                }
+
+            }
+
+            Draw_Net();
+            Start_sim();
+        }
+
+        public void Draw_Net()
+        {
+            int column = 5096;
+            int row = 128;
+            Bitmap B = new Bitmap(5096, 128);
+            for (int i = 0; i <= column-1; i++)
+                for (int j = 0; j <= row-1; j++)
+                    B.SetPixel(i, j, System.Drawing.Color.White);
+
+
+            for (int i = 1; i <= column - 1; i++)
+            {
+                B.SetPixel(i, 10, System.Drawing.Color.Black);
+                B.SetPixel(i, 41, System.Drawing.Color.Black);
+            }
+
+            for (int i = 1; i < 30; i++)
+            {
+                for (int j = 1; j < 5000; j++)
+                {
+                    if (automat[i-1, j-1].getState() == 2)
+                        B.SetPixel(j+10,i+10, System.Drawing.Color.Black); //(x,y)
+                }
+            }
+
+            stack.Source = BitmapToImageSource(B);
+
+        }
+
+        void Start_sim()
+        {
+
+        }
+
+        BitmapImage BitmapToImageSource(Bitmap bitmap)
+        {
+            using (MemoryStream memory = new MemoryStream())
+            {
+                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
+                memory.Position = 0;
+                BitmapImage bitmapimage = new BitmapImage();
+                bitmapimage.BeginInit();
+                bitmapimage.StreamSource = memory;
+                bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapimage.EndInit();
+
+                return bitmapimage;
+            }
+        }
+
+    }
+}
+
+/*
+             Console.WriteLine("Tiry -----------------------------------------------");
             for (int i = 0; i < DataBase.tir; i++)
             {
                 line_no = random.Next(0, 2);
@@ -188,87 +333,5 @@ namespace TunnelEvacuationV1
 
                 bikes[i] = new Vehicle(1, temp * 8, 5 + (line_no * 10) + random.Next(1, 4)); // odległość (w komórkach) od ściany + przesunięcie o pas + odległość od krawędzi pasa
 
-            }
-
-
-
-            Draw_Net();
-            Start_sim();
-        }
-
-        public void Draw_Net()
-        {
-            int column = 5096;
-            int row = 128;
-            Bitmap B = new Bitmap(5096, 128);
-            for (int i = 0; i <= column-1; i++)
-                for (int j = 0; j <= row-1; j++)
-                    B.SetPixel(i, j, System.Drawing.Color.White);
-
-
-            for (int i = 1; i <= column - 1; i++)
-            {
-                B.SetPixel(i, 10, System.Drawing.Color.Black);
-                B.SetPixel(i, 41, System.Drawing.Color.Black);
-            }
-
-            for (int i = 0; i < tirs.Length; i++)
-            {
-                for (int j = 0; j < 41; j++)
-                {
-                    B.SetPixel(tirs[i].x + j, tirs[i].y + 10, System.Drawing.Color.Black); //(x,y)
-                    B.SetPixel(tirs[i].x + j, tirs[i].y + 1 + 10, System.Drawing.Color.Black); //(x,y)
-                    B.SetPixel(tirs[i].x + j, tirs[i].y + 2 + 10, System.Drawing.Color.Black); //(x,y)
-                    B.SetPixel(tirs[i].x + j, tirs[i].y + 3 + 10, System.Drawing.Color.Black); //(x,y)
-                    B.SetPixel(tirs[i].x + j, tirs[i].y + 4 + 10, System.Drawing.Color.Black); //(x,y)
-                    B.SetPixel(tirs[i].x + j, tirs[i].y + 5 + 10, System.Drawing.Color.Black); //(x,y)
-                }
-            }
-
-
-            for (int i = 0; i < cars.Length; i++)
-            {
-                for (int j = 0; j < 12; j++)
-                {
-                    B.SetPixel(cars[i].x + j, cars[i].y + 10, System.Drawing.Color.Black); //(x,y)
-                    B.SetPixel(cars[i].x + j, cars[i].y + 1 + 10, System.Drawing.Color.Black); //(x,y)
-                    B.SetPixel(cars[i].x + j, cars[i].y + 2 + 10, System.Drawing.Color.Black); //(x,y)
-                    B.SetPixel(cars[i].x + j, cars[i].y + 3 + 10, System.Drawing.Color.Black); //(x,y)
-                }
-            }
-            for (int i = 0; i < bikes.Length; i++)
-            {
-                for (int j = 0; j < 6; j++)
-                {
-                    B.SetPixel(bikes[i].x + j, bikes[i].y + 10, System.Drawing.Color.Black); //(x,y)
-                    B.SetPixel(bikes[i].x + j, bikes[i].y + 1 + 10, System.Drawing.Color.Black); //(x,y)
-                }
-            }
-
-            stack.Source = BitmapToImageSource(B);
-
-        }
-
-        void Start_sim()
-        {
-
-        }
-
-        BitmapImage BitmapToImageSource(Bitmap bitmap)
-        {
-            using (MemoryStream memory = new MemoryStream())
-            {
-                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
-                memory.Position = 0;
-                BitmapImage bitmapimage = new BitmapImage();
-                bitmapimage.BeginInit();
-                bitmapimage.StreamSource = memory;
-                bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapimage.EndInit();
-
-                return bitmapimage;
-            }
-        }
-
-    }
-}
+            } 
+  */
