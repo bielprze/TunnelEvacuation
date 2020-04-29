@@ -94,6 +94,8 @@ namespace TunnelEvacuationV1
                 try
                 {
                     DataBase.vehicle_num = Int32.Parse(vehicle_num_text.Text);
+                    if (DataBase.vehicle_num > 200)
+                        DataBase.vehicle_num = 200;
                 }
                 catch(FormatException ex1)
                 {

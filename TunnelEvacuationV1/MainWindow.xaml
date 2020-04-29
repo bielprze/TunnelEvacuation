@@ -29,7 +29,7 @@
         <TextBox Name="exit_text" Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Stretch" VerticalAlignment="Center" />
         <Button Grid.Column="2" Grid.Row="1" Name="exit_ok" Content="OK" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80"/>
 
-        <TextBlock Text="Liczba pojazdów"  Grid.Column="0" Grid.Row="2"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
+        <TextBlock Text="Liczba pojazdów (domyślnie 50, max 200)"  Grid.Column="0" Grid.Row="2"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
         <TextBox Name="vehicle_num_text" Grid.Column="1" Grid.Row="2"  HorizontalAlignment="Stretch" VerticalAlignment="Center" />
         <Button Grid.Column="2" Grid.Row="2" Name="veh_ok" Content="OK" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80"/>
 

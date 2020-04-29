@@ -8,9 +8,10 @@ namespace TunnelEvacuationV1
 {
     class Cell
     {
-        int panic;
-        double speed;
-        int state; // 0 - pusta, 1 - pieszy, 2 - przeszkoda
+        public int panic; //0-100
+        public double speed;
+        public int state; // 0 - pusta, 1 - pieszy, 2 - przeszkoda
+        public int reaction;
         public Cell(int p, double sp, int st)
         {
             panic = p;

@@ -66,7 +66,31 @@ namespace TunnelEvacuationV1
                         for (int j = 0; j < 42; j++)
                             for (int k = 0; k < 6; k++)
                                 automat[a + k, b + j].setState(2);
-                        tirs[i] = new Vehicle(0, a, b);
+                        tirs[i] = new Vehicle(0, a, b, random);
+
+                        double speed;
+                        int panic;
+                        switch(tirs[i].passenger)
+                        {
+                            case 1:
+                                automat[a -1, b + 5].setState(1);
+                                automat[a - 1, b + 5].panic = random.Next(0, 30);
+                                automat[a - 1, b + 5].reaction = tirs[i].passengers_reaction_time;
+                                automat[a - 1, b + 5].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                break;
+                            case 2:
+                                automat[a - 1, b + 5].setState(1);
+                                automat[a - 1, b + 5].panic = random.Next(0, 30);
+                                automat[a - 1, b + 5].reaction = tirs[i].passengers_reaction_time;
+                                automat[a - 1, b + 5].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+
+                                automat[a + 6, b + 5].setState(1);
+                                automat[a + 6, b + 5].panic = random.Next(0, 30);
+                                automat[a + 6, b + 5].reaction = tirs[i].passengers_reaction_time;
+                                automat[a + 6, b + 5].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                break;
+                        }
+
                         break;
                     }
                     flag = true;
@@ -92,7 +116,99 @@ namespace TunnelEvacuationV1
                         for (int j = 0; j < 11; j++)
                             for (int k = 0; k < 4; k++)
                                 automat[a + k, b + j].setState(2);
-                        cars[i] = new Vehicle(0, a, b);
+                        cars[i] = new Vehicle(0, a, b, random);
+
+                        switch (cars[i].passenger)
+                        {
+                            case 1:
+                                automat[a - 1, b + 3].setState(1);
+                                automat[a - 1, b + 3].panic = random.Next(0, 30);
+                                automat[a - 1, b + 3].reaction = cars[i].passengers_reaction_time;
+                                automat[a - 1, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                break;
+
+                            case 2:
+                                automat[a - 1, b + 3].setState(1);
+                                automat[a - 1, b + 3].panic = random.Next(0, 30);
+                                automat[a - 1, b + 3].reaction = cars[i].passengers_reaction_time;
+                                automat[a - 1, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+
+                                automat[a + 4, b + 3].setState(1);
+                                automat[a + 4, b + 3].panic = random.Next(0, 30);
+                                automat[a + 4, b + 3].reaction = cars[i].passengers_reaction_time;
+                                automat[a + 4, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                break;
+
+                            case 3:
+                                automat[a - 1, b + 3].setState(1);
+                                automat[a - 1, b + 3].panic = random.Next(0, 30);
+                                automat[a - 1, b + 3].reaction = cars[i].passengers_reaction_time;
+                                automat[a - 1, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+
+                                automat[a + 4, b + 3].setState(1);
+                                automat[a + 4, b + 3].panic = random.Next(0, 30);
+                                automat[a + 4, b + 3].reaction = cars[i].passengers_reaction_time;
+                                automat[a + 4, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+
+                                automat[a - 1, b + 7].setState(1);
+                                automat[a - 1, b + 7].panic = random.Next(0, 30);
+                                automat[a - 1, b + 7].reaction = cars[i].passengers_reaction_time;
+                                automat[a - 1, b + 7].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                break;
+
+                            case 4:
+                                automat[a - 1, b + 3].setState(1);
+                                automat[a - 1, b + 3].panic = random.Next(0, 30);
+                                automat[a - 1, b + 3].reaction = cars[i].passengers_reaction_time;
+                                automat[a - 1, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+
+                                automat[a + 4, b + 3].setState(1);
+                                automat[a + 4, b + 3].panic = random.Next(0, 30);
+                                automat[a + 4, b + 3].reaction = cars[i].passengers_reaction_time;
+                                automat[a + 4, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+
+                                automat[a - 1, b + 7].setState(1);
+                                automat[a - 1, b + 7].panic = random.Next(0, 30);
+                                automat[a - 1, b + 7].reaction = cars[i].passengers_reaction_time;
+                                automat[a - 1, b + 7].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+
+                                automat[a + 4, b + 7].setState(1);
+                                automat[a + 4, b + 7].panic = random.Next(0, 30);
+                                automat[a + 4, b + 7].reaction = cars[i].passengers_reaction_time;
+                                automat[a + 4, b + 7].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                break;
+
+                            case 5:
+                                automat[a - 1, b + 3].setState(1);
+                                automat[a - 1, b + 3].panic = random.Next(0, 30);
+                                automat[a - 1, b + 3].reaction = cars[i].passengers_reaction_time;
+                                automat[a - 1, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+
+                                automat[a + 4, b + 3].setState(1);
+                                automat[a + 4, b + 3].panic = random.Next(0, 30);
+                                automat[a + 4, b + 3].reaction = cars[i].passengers_reaction_time;
+                                automat[a + 4, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+
+                                automat[a - 1, b + 7].setState(1);
+                                automat[a - 1, b + 7].panic = random.Next(0, 30);
+                                automat[a - 1, b + 7].reaction = cars[i].passengers_reaction_time;
+                                automat[a - 1, b + 7].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+
+                                automat[a + 4, b + 7].setState(1);
+                                automat[a + 4, b + 7].panic = random.Next(0, 30);
+                                automat[a + 4, b + 7].reaction = cars[i].passengers_reaction_time;
+                                automat[a + 4, b + 7].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+
+                                automat[a + 4, b + 9].setState(1);
+                                automat[a + 4, b + 9].panic = random.Next(0, 30);
+                                automat[a + 4, b + 9].reaction = cars[i].passengers_reaction_time;
+                                automat[a + 4, b + 9].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                break;
+
+
+                        }
+
+
                         break;
                     }
                     flag = true;
@@ -119,13 +235,36 @@ namespace TunnelEvacuationV1
                         for (int j = 0; j < 5; j++)
                             for (int k = 0; k < 2; k++)
                                 automat[a + k, b + j].setState(2);
-                        bikes[i] = new Vehicle(0, a, b);
+                        bikes[i] = new Vehicle(0, a, b, random);
+
+                        switch (bikes[i].passenger)
+                        {
+                            case 1:
+                                automat[a - 1, b].setState(1);
+                                automat[a - 1, b].panic = random.Next(0, 30);
+                                automat[a - 1, b].reaction = bikes[i].passengers_reaction_time;
+                                automat[a - 1, b].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                break;
+                            case 2:
+                                automat[a - 1, b].setState(1);
+                                automat[a - 1, b].panic = random.Next(0, 30);
+                                automat[a - 1, b].reaction = bikes[i].passengers_reaction_time;
+                                automat[a - 1, b].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+
+                                automat[a + 2, b].setState(1);
+                                automat[a + 2, b].panic = random.Next(0, 30);
+                                automat[a + 2, b].reaction = bikes[i].passengers_reaction_time;
+                                automat[a + 2, b].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                break;
+                        }
                         break;
                     }
                     flag = true;
                 }
 
             }
+
+
 
             Draw_Net();
             Start_sim();
@@ -134,8 +273,8 @@ namespace TunnelEvacuationV1
         public void Draw_Net()
         {
             int column = 5096;
-            int row = 128;
-            Bitmap B = new Bitmap(5096, 128);
+            int row = 512;
+            Bitmap B = new Bitmap(5096, 512);
             for (int i = 0; i <= column-1; i++)
                 for (int j = 0; j <= row-1; j++)
                     B.SetPixel(i, j, System.Drawing.Color.White);
@@ -143,8 +282,8 @@ namespace TunnelEvacuationV1
 
             for (int i = 1; i <= column - 1; i++)
             {
-                B.SetPixel(i, 10, System.Drawing.Color.Black);
-                B.SetPixel(i, 41, System.Drawing.Color.Black);
+                B.SetPixel(i, 100, System.Drawing.Color.Black);
+                B.SetPixel(i, 142, System.Drawing.Color.Black);
             }
 
             for (int i = 1; i < 30; i++)
@@ -152,9 +291,13 @@ namespace TunnelEvacuationV1
                 for (int j = 1; j < 5000; j++)
                 {
                     if (automat[i-1, j-1].getState() == 2)
-                        B.SetPixel(j+10,i+10, System.Drawing.Color.Black); //(x,y)
+                        B.SetPixel(j+10,i+110, System.Drawing.Color.Black); //(x,y)
+                    if (automat[i - 1, j - 1].getState() == 1)
+                        B.SetPixel(j + 10, i + 110, System.Drawing.Color.Red); //(x,y)
                 }
             }
+
+
 
             stack.Source = BitmapToImageSource(B);
 
