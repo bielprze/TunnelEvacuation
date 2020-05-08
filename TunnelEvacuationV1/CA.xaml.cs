@@ -266,10 +266,22 @@ namespace TunnelEvacuationV1
 
 
 
-            Draw_Net();
+            switch(DataBase.chosen_mode)
+            {
+                case 0:
+                    Draw_Net();
+                    break;
+                case 1:
+                    Draw_Emilia();
+                    break;
+            }
             Start_sim();
         }
 
+        public void Draw_Emilia()
+        {
+
+        }
         public void Draw_Net()
         {
             int column = 5096;

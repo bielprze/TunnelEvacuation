@@ -8,7 +8,7 @@ namespace TunnelEvacuationV1
 {
     public static class DataBase
     {
-        public static int chosen_mode; //0 - własny, 1 - scenariusz 1
+        public static int chosen_mode; //0 - własny, 1 - scenariusz emilia
 
         public static int evac_time = 420;
         public static int vehicle_num = 50;
@@ -26,16 +26,9 @@ namespace TunnelEvacuationV1
 
         public static void evaluate_vehicles()
         {
-
-            Console.WriteLine("Inside Database");
-            Console.WriteLine(vehicle_num.ToString());
-
             tir = (int)(tir_percent * vehicle_num);
             car = (int)(car_percent * vehicle_num);
             bike = (int)(bike_percent * vehicle_num);
-            Console.WriteLine(tir.ToString());
-            Console.WriteLine(car.ToString());
-            Console.WriteLine(bike.ToString());
         }
     }
 }

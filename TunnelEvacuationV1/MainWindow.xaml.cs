@@ -27,7 +27,7 @@ namespace TunnelEvacuationV1
             exit_ok.Click += Exit_ok_Click;
             veh_ok.Click += Veh_ok_Click;
             Next_stage.Click += Next_stage_Click;
-            scenario_1.Click += Scenario_1_Click;
+            scenario_emilia.Click += Scenario_emilia_Click;
 
             vehicle_group_ok.Click += Vehicle_group_ok_Click;
         }
@@ -115,7 +115,7 @@ namespace TunnelEvacuationV1
             this.Close(); //only if you want to close the current form.
         }
 
-        private void Scenario_1_Click(object sender, RoutedEventArgs e)
+        private void Scenario_emilia_Click(object sender, RoutedEventArgs e)
         {
             DataBase.chosen_mode = 0;
             Console.WriteLine(DataBase.vehicle_num.ToString());

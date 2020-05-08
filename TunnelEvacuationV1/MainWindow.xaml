@@ -78,7 +78,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
-                <Button Grid.Column="1" Grid.Row="6" Name="scenario_1" Content="Tunel X" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10"/>
+                <Button Grid.Column="1" Grid.Row="6" Name="scenario_emilia" Content="Tunel Emilia" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10"/>
             </Grid>
         </GroupBox>
     </Grid>
