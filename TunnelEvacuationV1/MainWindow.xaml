@@ -5,55 +5,81 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TunnelEvacuationV1"
         mc:Ignorable="d"
-        Title="Konfiguracja" Height="450" Width="880">
+        Title="Konfiguracja" Height="650" Width="880">
     <Grid>
-        <Grid.ColumnDefinitions> 
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
+        <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="4*" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        <TextBlock Text="Czas ewakuacji [s] (domyślnie 420s)"  Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
-        <TextBox Name="evac_time_text" Grid.Column="1" Grid.Row="0"  HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-        <Button Grid.Column="2" Grid.Row="0" Name="evac_ok" Content="OK" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80"/>
+    
+    <GroupBox Header="Własna definicja tunelu" Grid.Row="0">
+                
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="Czas ewakuacji [s] (domyślnie 420s)"  Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
+            <TextBox Name="evac_time_text" Grid.Column="1" Grid.Row="0"  HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+            <Button Grid.Column="2" Grid.Row="0" Name="evac_ok" Content="OK" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80"/>
 
-        <TextBlock Text="Odległość pomiędzy wyjściami (domyślnie 300m)"  Grid.Column="0" Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
-        <TextBox Name="exit_text" Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-        <Button Grid.Column="2" Grid.Row="1" Name="exit_ok" Content="OK" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80"/>
+            <TextBlock Text="Odległość pomiędzy wyjściami (domyślnie 300m)"  Grid.Column="0" Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
+            <TextBox Name="exit_text" Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+            <Button Grid.Column="2" Grid.Row="1" Name="exit_ok" Content="OK" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80"/>
 
-        <TextBlock Text="Liczba pojazdów (domyślnie 50, max 200)"  Grid.Column="0" Grid.Row="2"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
-        <TextBox Name="vehicle_num_text" Grid.Column="1" Grid.Row="2"  HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-        <Button Grid.Column="2" Grid.Row="2" Name="veh_ok" Content="OK" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80"/>
-
-
-        <TextBlock Text="Procent tirów [%] (domyślnie 50%)"  Grid.Column="0" Grid.Row="3"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
-        <DockPanel Grid.Column="1" Grid.Row="3">
-            <TextBox Text="{Binding ElementName=tir_no, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Center" Width="40" Height="20" />
-            <Slider Name="tir_no" Value ="50" HorizontalAlignment="Stretch" VerticalAlignment="Center" Maximum="100" TickFrequency="5" TickPlacement="BottomRight" />
-        </DockPanel>
-
-        <TextBlock Text="Procent samochodów [%] (domyślnie 40%)"  Grid.Column="0" Grid.Row="4"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
-        <DockPanel Grid.Column="1" Grid.Row="4">
-            <TextBox Text="{Binding ElementName=car_no, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Center" Width="40" Height="20" />
-            <Slider Value ="40" Name="car_no" HorizontalAlignment="Stretch" VerticalAlignment="Center" Maximum="100" TickFrequency="5" TickPlacement="BottomRight" />
-        </DockPanel>
+            <TextBlock Text="Liczba pojazdów (domyślnie 50, max 200)"  Grid.Column="0" Grid.Row="2"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
+            <TextBox Name="vehicle_num_text" Grid.Column="1" Grid.Row="2"  HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+            <Button Grid.Column="2" Grid.Row="2" Name="veh_ok" Content="OK" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80"/>
 
 
-        <TextBlock Text="Procent motocykli [%] (domyślnie 10%)"  Grid.Column="0" Grid.Row="5"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
-        <DockPanel Grid.Column="1" Grid.Row="5">
-            <TextBox Text="{Binding ElementName=bike_no, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Center" Width="40" Height="20" />
-            <Slider Name="bike_no" Value ="10" HorizontalAlignment="Stretch" VerticalAlignment="Center" Maximum="100" TickFrequency="5" TickPlacement="BottomRight" />
-        </DockPanel>
-        <Button Grid.Column="2" Grid.Row="5" Name="vehicle_group_ok" Content="OK" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" IsEnabled="True"/>
+            <TextBlock Text="Procent tirów [%] (domyślnie 50%)"  Grid.Column="0" Grid.Row="3"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
+            <DockPanel Grid.Column="1" Grid.Row="3">
+                <TextBox Text="{Binding ElementName=tir_no, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Center" Width="40" Height="20" />
+                <Slider Name="tir_no" Value ="50" HorizontalAlignment="Stretch" VerticalAlignment="Center" Maximum="100" TickFrequency="5" TickPlacement="BottomRight" />
+            </DockPanel>
 
-        <Button Grid.Column="1" Grid.Row="6" Name="Next_stage" Content="Zaakceptuj i przejdź dalej" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10"/>
+            <TextBlock Text="Procent samochodów [%] (domyślnie 40%)"  Grid.Column="0" Grid.Row="4"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
+            <DockPanel Grid.Column="1" Grid.Row="4">
+                <TextBox Text="{Binding ElementName=car_no, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Center" Width="40" Height="20" />
+                <Slider Value ="40" Name="car_no" HorizontalAlignment="Stretch" VerticalAlignment="Center" Maximum="100" TickFrequency="5" TickPlacement="BottomRight" />
+            </DockPanel>
+
+
+            <TextBlock Text="Procent motocykli [%] (domyślnie 10%)"  Grid.Column="0" Grid.Row="5"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
+            <DockPanel Grid.Column="1" Grid.Row="5">
+                <TextBox Text="{Binding ElementName=bike_no, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Center" Width="40" Height="20" />
+                <Slider Name="bike_no" Value ="10" HorizontalAlignment="Stretch" VerticalAlignment="Center" Maximum="100" TickFrequency="5" TickPlacement="BottomRight" />
+            </DockPanel>
+            <Button Grid.Column="2" Grid.Row="5" Name="vehicle_group_ok" Content="OK" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" IsEnabled="True"/>
+
+            <Button Grid.Column="1" Grid.Row="6" Name="Next_stage" Content="Zaakceptuj i przejdź dalej" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10"/>
+
+        </Grid>
+    </GroupBox>
+
+        <GroupBox Header="Gotowy Scenariusz" Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <Button Grid.Column="1" Grid.Row="6" Name="scenario_1" Content="Tunel X" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10"/>
+            </Grid>
+        </GroupBox>
     </Grid>
 </Window>
