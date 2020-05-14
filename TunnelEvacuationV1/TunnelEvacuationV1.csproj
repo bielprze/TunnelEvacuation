@@ -57,6 +57,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Cell.cs" />
+    <Compile Include="Pair.cs" />
     <Compile Include="Vehicle.cs" />
     <Page Include="CA.xaml">
       <SubType>Designer</SubType>

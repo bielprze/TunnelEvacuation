@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:TunnelEvacuationV1"
         mc:Ignorable="d"
         Title="CA" Height="650" Width="800">
-
+    <StackPanel>
     <ScrollViewer HorizontalScrollBarVisibility="Auto">
         <Image VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="stack">
         </Image> 
-       
         
     </ScrollViewer>
-
+        <Button  Name="Start" Content="Rozpocznij symulacje" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Margin="15"/>
+    </StackPanel>
 </Window>

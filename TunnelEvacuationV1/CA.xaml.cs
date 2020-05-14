@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,17 +28,27 @@ namespace TunnelEvacuationV1
         Vehicle[] bikes = new Vehicle[DataBase.bike];
 
         Cell[,] automat = new Cell[30, 5000];
+        List<Pair> Exits = new List<Pair>();
 
-        
+        Bitmap B = new Bitmap(5096 * 2, 512);
+
         public CA()
         {
             InitializeComponent();
+
+            Start.Click += Start_Click;
 
             for(int i=0; i<30; i++)
                 for(int j=0; j<5000; j++)
                 {
                     automat[i, j] = new Cell(0);
                 }
+
+            for (int j = 0; j < 5000; j++)
+                automat[0, j].setState(2);
+
+            for (int j = 0; j < 5000; j++)
+                automat[29, j].setState(2);
 
 
             Random random = new Random();
@@ -47,12 +58,15 @@ namespace TunnelEvacuationV1
             bool flag = true;
 
             int a, b;
+            int while_counter = 0;
 
             for (int i = 0; i < DataBase.tir; i++)
             {
                 flag = true;
+                while_counter = 0;
                 while (true)
                 {
+
                     a = 4 + (random.Next(0, 2) * 10) + random.Next(0, 3);
                     b = random.Next(10, 4950);
                     for (int j = 0; j < 44; j++)
@@ -73,7 +87,7 @@ namespace TunnelEvacuationV1
                         switch(tirs[i].passenger)
                         {
                             case 1:
-                                automat[a -1, b + 5].setState(1);
+                                automat[a - 1, b + 5].setState(1);
                                 automat[a - 1, b + 5].panic = random.Next(0, 30);
                                 automat[a - 1, b + 5].reaction = tirs[i].passengers_reaction_time;
                                 automat[a - 1, b + 5].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
@@ -93,14 +107,19 @@ namespace TunnelEvacuationV1
 
                         break;
                     }
+                    while_counter+=1;
                     flag = true;
+                    if (while_counter > 50)
+                        break;
+
                 }
 
             }
-
+             
             for (int i = 0; i < DataBase.car; i++)
             {
                 flag = true;
+                while_counter = 0;
                 while (true)
                 {
                     a = 4 + (random.Next(0, 2) * 10) + random.Next(0, 3);
@@ -211,7 +230,10 @@ namespace TunnelEvacuationV1
 
                         break;
                     }
+                    while_counter += 1;
                     flag = true;
+                    if (while_counter > 50)
+                        break;
                 }
 
             }
@@ -220,6 +242,7 @@ namespace TunnelEvacuationV1
             for (int i = 0; i < DataBase.bike; i++)
             {
                 flag = true;
+                while_counter = 0;
                 while (true)
                 {
                     a = 4 + (random.Next(0, 2) * 10) + random.Next(0, 3);
@@ -259,12 +282,32 @@ namespace TunnelEvacuationV1
                         }
                         break;
                     }
+                    while_counter += 1;
                     flag = true;
+                    if (while_counter > 50)
+                        break;
                 }
 
             }
 
+            int cnt = 4999 - (int)(DataBase.interval / 0.4);
+            while(cnt>1)
+            {
+                automat[0, cnt].setState(3);
+                automat[0, cnt-1].setState(3);
+                automat[0, cnt-2].setState(3);
+                Exits.Add(new Pair(cnt, 0));
+                Exits.Add(new Pair(cnt-1, 0));
+                Exits.Add(new Pair(cnt-2, 0));
 
+                cnt = cnt - (int)(DataBase.interval / 0.4);
+            }
+
+            for (int i=0; i<30; i++)
+            {
+                automat[i, 4999].setState(3);
+                Exits.Add(new Pair(4999, i));
+            }
 
             switch(DataBase.chosen_mode)
             {
@@ -275,6 +318,31 @@ namespace TunnelEvacuationV1
                     Draw_Emilia();
                     break;
             }
+
+            Evaluate_exit_distance();
+
+            // Start_sim();
+        }
+
+        private void Evaluate_exit_distance()
+        {
+            for(int i=0; i<30; ++i)
+                for(int j=0; j<5000; ++j)
+                {
+                    double min=10000;
+                    double temp;
+                    foreach (var exit in Exits)
+                    {
+                        temp = Math.Sqrt(Math.Pow(exit.x - j, 2.0) + Math.Pow(exit.y - i, 2.0));
+                        if (temp < min)
+                            min = temp;
+                    }
+                    automat[i, j].nearest_exit = min;
+                }
+        }
+
+        private void Start_Click(object sender, RoutedEventArgs e)
+        {
             Start_sim();
         }
 
@@ -284,28 +352,47 @@ namespace TunnelEvacuationV1
         }
         public void Draw_Net()
         {
-            int column = 5096;
+            int column = 5096*2;
             int row = 512;
-            Bitmap B = new Bitmap(5096, 512);
             for (int i = 0; i <= column-1; i++)
-                for (int j = 0; j <= row-1; j++)
+                for (int j = 0; j <= row-1; j++) 
                     B.SetPixel(i, j, System.Drawing.Color.White);
 
 
-            for (int i = 1; i <= column - 1; i++)
+            int x = 1;
+            int y = 1;
+            for (int i = 1; i < 31; i++)
             {
-                B.SetPixel(i, 100, System.Drawing.Color.Black);
-                B.SetPixel(i, 142, System.Drawing.Color.Black);
-            }
-
-            for (int i = 1; i < 30; i++)
-            {
-                for (int j = 1; j < 5000; j++)
+                for (int j = 1; j < 5001; j++)
                 {
-                    if (automat[i-1, j-1].getState() == 2)
-                        B.SetPixel(j+10,i+110, System.Drawing.Color.Black); //(x,y)
-                    if (automat[i - 1, j - 1].getState() == 1)
-                        B.SetPixel(j + 10, i + 110, System.Drawing.Color.Red); //(x,y)
+                    if (automat[i - 1, j - 1].getState() == 2)
+                    {
+                        x = j * 2;
+                        y = i * 2;
+
+                        B.SetPixel(x + 10, y + 110, System.Drawing.Color.Black); //(x,y)
+                        B.SetPixel(x + 11, y + 110, System.Drawing.Color.Black); //(x,y)
+                        B.SetPixel(x + 10, y + 111, System.Drawing.Color.Black); //(x,y)
+                        B.SetPixel(x + 11, y + 111, System.Drawing.Color.Black); //(x,y)
+                    }
+                    else if (automat[i - 1, j - 1].getState() == 1)
+                    {
+                        x = j * 2;
+                        y = i * 2;
+                        B.SetPixel(x + 10, y + 110, System.Drawing.Color.Red); //(x,y)
+                        B.SetPixel(x + 11, y + 110, System.Drawing.Color.Red); //(x,y)
+                        B.SetPixel(x + 10, y + 111, System.Drawing.Color.Red); //(x,y)
+                        B.SetPixel(x + 11, y + 111, System.Drawing.Color.Red); //(x,y)
+                    }
+                    else if ((automat[i - 1, j - 1].getState() == 3))
+                    {
+                        x = j * 2;
+                        y = i * 2;
+                        B.SetPixel(x + 10, y + 110, System.Drawing.Color.GreenYellow); //(x,y)
+                        B.SetPixel(x + 11, y + 110, System.Drawing.Color.GreenYellow); //(x,y)
+                        B.SetPixel(x + 10, y + 111, System.Drawing.Color.GreenYellow); //(x,y)
+                        B.SetPixel(x + 11, y + 111, System.Drawing.Color.GreenYellow); //(x,y)
+                    }
                 }
             }
 
@@ -317,6 +404,29 @@ namespace TunnelEvacuationV1
 
         void Start_sim()
         {
+            var watch = new System.Diagnostics.Stopwatch();
+            //DataBase.evac_time
+            for (int i=0; i< DataBase.evac_time*2; i++)
+            {
+                watch.Start();
+                //Automat Start
+
+
+
+
+
+                //Automat Stop
+                watch.Stop();
+                Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms");
+
+                if (watch.ElapsedMilliseconds<500)
+                {
+                    Thread.Sleep(500 - (int)watch.ElapsedMilliseconds);
+                }
+
+
+                stack.Source = BitmapToImageSource(B);
+            }
 
         }
 
