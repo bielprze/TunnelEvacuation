@@ -40,8 +40,8 @@ namespace TunnelEvacuationV1
 
             Start.Click += Start_Click;
 
-            for(int i=0; i<30; i++)
-                for(int j=0; j< DataBase.automat_size; j++)
+            for (int i = 0; i < 30; i++)
+                for (int j = 0; j < DataBase.automat_size; j++)
                 {
                     automat[i, j] = new Cell(0);
                 }
@@ -62,7 +62,10 @@ namespace TunnelEvacuationV1
             int a, b;
             int while_counter = 0;
 
-            for (int i = 0; i < DataBase.tir; i++)
+            switch (DataBase.chosen_mode)
+            {
+                case 0:
+                    for (int i = 0; i < DataBase.tir; i++)
             {
                 flag = true;
                 while_counter = 0;
@@ -70,14 +73,14 @@ namespace TunnelEvacuationV1
                 {
 
                     a = 4 + (random.Next(0, 2) * 10) + random.Next(0, 3);
-                    b = random.Next(10, DataBase.automat_size-35);
+                    b = random.Next(10, DataBase.automat_size - 35);
                     for (int j = 0; j < 44; j++)
                         for (int k = 0; k < 6; k++)
                             if (automat[a + k, b + j].getState() != 0)
                             {
                                 flag = false;
                             }
-                    if(flag)
+                    if (flag)
                     {
                         for (int j = 0; j < 42; j++)
                             for (int k = 0; k < 6; k++)
@@ -86,7 +89,7 @@ namespace TunnelEvacuationV1
 
                         double speed;
                         int panic;
-                        switch(tirs[i].passenger)
+                        switch (tirs[i].passenger)
                         {
                             case 1:
                                 automat[a - 1, b + 5].setState(1);
@@ -109,7 +112,7 @@ namespace TunnelEvacuationV1
 
                         break;
                     }
-                    while_counter+=1;
+                    while_counter += 1;
                     flag = true;
                     if (while_counter > 50)
                         break;
@@ -117,15 +120,15 @@ namespace TunnelEvacuationV1
                 }
 
             }
-             
-            for (int i = 0; i < DataBase.car; i++)
+
+                    for (int i = 0; i < DataBase.car; i++)
             {
                 flag = true;
                 while_counter = 0;
                 while (true)
                 {
                     a = 4 + (random.Next(0, 2) * 10) + random.Next(0, 3);
-                    b = random.Next(10, DataBase.automat_size-35);
+                    b = random.Next(10, DataBase.automat_size - 35);
                     for (int j = 0; j < 13; j++)
                         for (int k = 0; k < 4; k++)
                             if (automat[a + k, b + j].getState() != 0)
@@ -240,15 +243,14 @@ namespace TunnelEvacuationV1
 
             }
 
-
-            for (int i = 0; i < DataBase.bike; i++)
+                    for (int i = 0; i < DataBase.bike; i++)
             {
                 flag = true;
                 while_counter = 0;
                 while (true)
                 {
                     a = 4 + (random.Next(0, 2) * 10) + random.Next(0, 3);
-                    b = random.Next(10, DataBase.automat_size-35);
+                    b = random.Next(10, DataBase.automat_size - 35);
                     for (int j = 0; j < 7; j++)
                         for (int k = 0; k < 2; k++)
                             if (automat[a + k, b + j].getState() != 0)
@@ -291,7 +293,45 @@ namespace TunnelEvacuationV1
                 }
 
             }
+                    break;
+                case 1:
+                    a = 12;
+                    b = 50;
+                   
+                    
+                        for (int j = 0; j < 42; j++)
+                            for (int k = 0; k < 6; k++)
+                                automat[a + k, b + j].setState(2);
+                        Vehicle bus = new Vehicle(0, a, b, random);
 
+                        double speed;
+                        int panic;
+                        switch (tirs[i].passenger)
+                        {
+                            case 1:
+                                automat[a - 1, b + 5].setState(1);
+                                automat[a - 1, b + 5].panic = random.Next(0, 30);
+                                automat[a - 1, b + 5].reaction = tirs[i].passengers_reaction_time;
+                                automat[a - 1, b + 5].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                break;
+                            case 2:
+                                automat[a - 1, b + 5].setState(1);
+                                automat[a - 1, b + 5].panic = random.Next(0, 30);
+                                automat[a - 1, b + 5].reaction = tirs[i].passengers_reaction_time;
+                                automat[a - 1, b + 5].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+
+                                automat[a + 6, b + 5].setState(1);
+                                automat[a + 6, b + 5].panic = random.Next(0, 30);
+                                automat[a + 6, b + 5].reaction = tirs[i].passengers_reaction_time;
+                                automat[a + 6, b + 5].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                break;
+                        }
+
+                       
+                    
+                    break;
+
+            }
             int cnt = DataBase.automat_size-1 - (int)(DataBase.interval / 0.4);
             while(cnt>1)
             {

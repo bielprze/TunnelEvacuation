@@ -10,7 +10,8 @@ namespace TunnelEvacuationV1
     {
         Truck = 0,
         Car = 1,
-        Bike = 2
+        Bike = 2,
+        Bus = 3
     }
     class Vehicle
     {
@@ -60,6 +61,9 @@ namespace TunnelEvacuationV1
                         passenger = 1;
                     else
                         passenger = 2;
+                    break;
+                case 3:
+                    passenger = 29;
                     break;
             }
         }
