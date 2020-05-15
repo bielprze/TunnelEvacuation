@@ -9,6 +9,7 @@ namespace TunnelEvacuationV1
     public static class DataBase
     {
         public static int chosen_mode; //0 - własny, 1 - scenariusz emilia
+        public static int automat_size;
 
         public static int evac_time = 420;
         public static int vehicle_num = 50;

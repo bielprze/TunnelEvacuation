@@ -27,7 +27,9 @@ namespace TunnelEvacuationV1
         Vehicle[] cars = new Vehicle[DataBase.car];
         Vehicle[] bikes = new Vehicle[DataBase.bike];
 
-        Cell[,] automat = new Cell[30, 5000];
+        Cell[,] automat = new Cell[30, DataBase.automat_size];
+
+
         List<Pair> Exits = new List<Pair>();
 
         Bitmap B = new Bitmap(5096 * 2, 512);
@@ -39,15 +41,15 @@ namespace TunnelEvacuationV1
             Start.Click += Start_Click;
 
             for(int i=0; i<30; i++)
-                for(int j=0; j<5000; j++)
+                for(int j=0; j< DataBase.automat_size; j++)
                 {
                     automat[i, j] = new Cell(0);
                 }
 
-            for (int j = 0; j < 5000; j++)
+            for (int j = 0; j < DataBase.automat_size; j++)
                 automat[0, j].setState(2);
 
-            for (int j = 0; j < 5000; j++)
+            for (int j = 0; j < DataBase.automat_size; j++)
                 automat[29, j].setState(2);
 
 
@@ -68,7 +70,7 @@ namespace TunnelEvacuationV1
                 {
 
                     a = 4 + (random.Next(0, 2) * 10) + random.Next(0, 3);
-                    b = random.Next(10, 4950);
+                    b = random.Next(10, DataBase.automat_size-35);
                     for (int j = 0; j < 44; j++)
                         for (int k = 0; k < 6; k++)
                             if (automat[a + k, b + j].getState() != 0)
@@ -123,7 +125,7 @@ namespace TunnelEvacuationV1
                 while (true)
                 {
                     a = 4 + (random.Next(0, 2) * 10) + random.Next(0, 3);
-                    b = random.Next(10, 4950);
+                    b = random.Next(10, DataBase.automat_size-35);
                     for (int j = 0; j < 13; j++)
                         for (int k = 0; k < 4; k++)
                             if (automat[a + k, b + j].getState() != 0)
@@ -246,7 +248,7 @@ namespace TunnelEvacuationV1
                 while (true)
                 {
                     a = 4 + (random.Next(0, 2) * 10) + random.Next(0, 3);
-                    b = random.Next(10, 4950);
+                    b = random.Next(10, DataBase.automat_size-35);
                     for (int j = 0; j < 7; j++)
                         for (int k = 0; k < 2; k++)
                             if (automat[a + k, b + j].getState() != 0)
@@ -290,7 +292,7 @@ namespace TunnelEvacuationV1
 
             }
 
-            int cnt = 4999 - (int)(DataBase.interval / 0.4);
+            int cnt = DataBase.automat_size-1 - (int)(DataBase.interval / 0.4);
             while(cnt>1)
             {
                 automat[0, cnt].setState(3);
@@ -305,8 +307,8 @@ namespace TunnelEvacuationV1
 
             for (int i=0; i<30; i++)
             {
-                automat[i, 4999].setState(3);
-                Exits.Add(new Pair(4999, i));
+                automat[i, DataBase.automat_size-1].setState(3);
+                Exits.Add(new Pair(DataBase.automat_size-1, i));
             }
 
             switch(DataBase.chosen_mode)
@@ -327,7 +329,7 @@ namespace TunnelEvacuationV1
         private void Evaluate_exit_distance()
         {
             for(int i=0; i<30; ++i)
-                for(int j=0; j<5000; ++j)
+                for(int j=0; j< DataBase.automat_size; ++j)
                 {
                     double min=10000;
                     double temp;
@@ -348,7 +350,53 @@ namespace TunnelEvacuationV1
 
         public void Draw_Emilia()
         {
+            int column = 5096 * 2;
+            int row = 512;
+            for (int i = 0; i <= column - 1; i++)
+                for (int j = 0; j <= row - 1; j++)
+                    B.SetPixel(i, j, System.Drawing.Color.White);
 
+
+            int x = 1;
+            int y = 1;
+            for (int i = 1; i < 31; i++)
+            {
+                for (int j = 1; j < DataBase.automat_size+1; j++)
+                {
+                    if (automat[i - 1, j - 1].getState() == 2)
+                    {
+                        x = j * 2;
+                        y = i * 2;
+
+                        B.SetPixel(x + 10, y + 110, System.Drawing.Color.Black); //(x,y)
+                        B.SetPixel(x + 11, y + 110, System.Drawing.Color.Black); //(x,y)
+                        B.SetPixel(x + 10, y + 111, System.Drawing.Color.Black); //(x,y)
+                        B.SetPixel(x + 11, y + 111, System.Drawing.Color.Black); //(x,y)
+                    }
+                    else if (automat[i - 1, j - 1].getState() == 1)
+                    {
+                        x = j * 2;
+                        y = i * 2;
+                        B.SetPixel(x + 10, y + 110, System.Drawing.Color.Red); //(x,y)
+                        B.SetPixel(x + 11, y + 110, System.Drawing.Color.Red); //(x,y)
+                        B.SetPixel(x + 10, y + 111, System.Drawing.Color.Red); //(x,y)
+                        B.SetPixel(x + 11, y + 111, System.Drawing.Color.Red); //(x,y)
+                    }
+                    else if ((automat[i - 1, j - 1].getState() == 3))
+                    {
+                        x = j * 2;
+                        y = i * 2;
+                        B.SetPixel(x + 10, y + 110, System.Drawing.Color.GreenYellow); //(x,y)
+                        B.SetPixel(x + 11, y + 110, System.Drawing.Color.GreenYellow); //(x,y)
+                        B.SetPixel(x + 10, y + 111, System.Drawing.Color.GreenYellow); //(x,y)
+                        B.SetPixel(x + 11, y + 111, System.Drawing.Color.GreenYellow); //(x,y)
+                    }
+                }
+            }
+
+
+
+            stack.Source = BitmapToImageSource(B);
         }
         public void Draw_Net()
         {

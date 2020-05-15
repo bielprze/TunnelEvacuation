@@ -109,6 +109,7 @@ namespace TunnelEvacuationV1
         private void Next_stage_Click(object sender, RoutedEventArgs e)
         {
             DataBase.chosen_mode = 0;
+            DataBase.automat_size = 5000;
             Console.WriteLine(DataBase.vehicle_num.ToString());
             DataBase.evaluate_vehicles();
             var newForm = new CA(); //create your new form.
@@ -118,7 +119,19 @@ namespace TunnelEvacuationV1
 
         private void Scenario_emilia_Click(object sender, RoutedEventArgs e)
         {
-            DataBase.chosen_mode = 0;
+
+            DataBase.automat_size = 1035;
+            DataBase.evac_time = 340;
+            DataBase.vehicle_num = 24;
+            DataBase.interval = 170;
+
+            DataBase.tir_percent = 0.5;
+            DataBase.car_percent = 0.4;
+            DataBase.bike_percent = 0.1;
+
+
+            DataBase.chosen_mode = 1;
+
             Console.WriteLine(DataBase.vehicle_num.ToString());
             DataBase.evaluate_vehicles();
             var newForm = new CA(); //create your new form.
