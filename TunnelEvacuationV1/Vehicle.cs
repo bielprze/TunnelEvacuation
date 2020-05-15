@@ -70,8 +70,16 @@ namespace TunnelEvacuationV1
 
         void reaction_time()
         {
-            var rand = new Random();
-            passengers_reaction_time = rand.Next(30, 120);
+            switch ((int)vehicle_type)
+            {
+                case 3:
+                    passengers_reaction_time = 31;
+                    break;
+                default:
+                var rand = new Random();
+                passengers_reaction_time = rand.Next(30, 120);
+                    break;
+            }
         }
 
         void location(int a, int b)

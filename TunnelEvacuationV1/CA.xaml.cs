@@ -295,42 +295,34 @@ namespace TunnelEvacuationV1
             }
                     break;
                 case 1:
-                    a = 12;
+                    a = 8;
                     b = 50;
                    
                     
-                        for (int j = 0; j < 42; j++)
+                    for (int j = 0; j < 42; j++)
                             for (int k = 0; k < 6; k++)
                                 automat[a + k, b + j].setState(2);
-                        Vehicle bus = new Vehicle(0, a, b, random);
+                    Vehicle bus = new Vehicle(3, a, b, random);
 
-                        double speed;
-                        int panic;
-                        switch (tirs[i].passenger)
+                    int m, n;
+                    Console.WriteLine(bus.passenger);
+                    for(int i=0; i<29; ++i)
+                    {
+                        while (true)
                         {
-                            case 1:
-                                automat[a - 1, b + 5].setState(1);
-                                automat[a - 1, b + 5].panic = random.Next(0, 30);
-                                automat[a - 1, b + 5].reaction = tirs[i].passengers_reaction_time;
-                                automat[a - 1, b + 5].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                            m = random.Next(0, 30);
+                            n = random.Next(0, 5);
+                            if(automat[a - 1-n, b + 5+m].getState()==0)
+                            {
+                                automat[a - 1 - n, b + 5 + m].setState(1);
+                                automat[a - 1 - n, b + 5 + m].panic = random.Next(0, 30);
+                                automat[a - 1 - n, b + 5 + m].reaction = bus.passengers_reaction_time;
+                                automat[a - 1 - n, b + 5 + m].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
                                 break;
-                            case 2:
-                                automat[a - 1, b + 5].setState(1);
-                                automat[a - 1, b + 5].panic = random.Next(0, 30);
-                                automat[a - 1, b + 5].reaction = tirs[i].passengers_reaction_time;
-                                automat[a - 1, b + 5].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
-
-                                automat[a + 6, b + 5].setState(1);
-                                automat[a + 6, b + 5].panic = random.Next(0, 30);
-                                automat[a + 6, b + 5].reaction = tirs[i].passengers_reaction_time;
-                                automat[a + 6, b + 5].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
-                                break;
+                            }
                         }
-
-                       
-                    
+                    }                
                     break;
-
             }
             int cnt = DataBase.automat_size-1 - (int)(DataBase.interval / 0.4);
             while(cnt>1)
