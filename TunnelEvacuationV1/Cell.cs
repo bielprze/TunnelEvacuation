@@ -16,15 +16,15 @@ namespace TunnelEvacuationV1
         public double nearest_exit;
         public double attractiveness;
 
-
-
-
+        public bool moved;
 
         public Cell(int p, double sp, int st)
         {
             panic = p;
             speed = sp;
             state = st;
+            moved = false;
+            reaction = 0;
         }
 
         public Cell(int st)
@@ -39,6 +39,19 @@ namespace TunnelEvacuationV1
         public void setState(int st)
         {
             this.state = st;
+        }
+
+        public void copy_cell(Cell new_one)
+        {
+            new_one.panic = this.panic;
+            new_one.speed = this.speed;
+            new_one.state = this.state;
+            new_one.reaction = this.reaction;
+            new_one.moved = true;
+            this.panic = 0;
+            this.speed = 0;
+            this.state = 0;
+            this.reaction = 0;
         }
     }
 }

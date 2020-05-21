@@ -34,6 +34,8 @@ namespace TunnelEvacuationV1
 
         Bitmap B = new Bitmap(5096 * 2, 512);
 
+        int next_x, next_y;
+
         public CA()
         {
             InitializeComponent();
@@ -375,9 +377,9 @@ namespace TunnelEvacuationV1
                 }
         }
 
-        private void Start_Click(object sender, RoutedEventArgs e)
+        private async void Start_Click(object sender, RoutedEventArgs e)
         {
-            Start_sim();
+           await Start_sim();
         }
 
         public void Draw_Emilia()
@@ -473,6 +475,15 @@ namespace TunnelEvacuationV1
                         B.SetPixel(x + 10, y + 111, System.Drawing.Color.GreenYellow); //(x,y)
                         B.SetPixel(x + 11, y + 111, System.Drawing.Color.GreenYellow); //(x,y)
                     }
+                    else if((automat[i - 1, j - 1].getState() == 0))
+                    {
+                        x = j * 2;
+                        y = i * 2;
+                        B.SetPixel(x + 10, y + 110, System.Drawing.Color.White); //(x,y)
+                        B.SetPixel(x + 11, y + 110, System.Drawing.Color.White); //(x,y)
+                        B.SetPixel(x + 10, y + 111, System.Drawing.Color.White); //(x,y)
+                        B.SetPixel(x + 11, y + 111, System.Drawing.Color.White); //(x,y)
+                    }
                 }
             }
 
@@ -482,34 +493,151 @@ namespace TunnelEvacuationV1
 
         }
 
-        void Start_sim()
+        public void find_min(int j, int k)
+        {
+            next_x = j - 1;
+            next_y = k - 1;
+            double min = automat[j-1, k-1].nearest_exit;
+
+            if (automat[j, k - 1].getState() == 0 && min > automat[j, k-1].nearest_exit)
+            {
+                next_x = j;
+                next_y = k - 1;
+                min = automat[j, k - 1].nearest_exit;
+            }
+            if (automat[j, k + 1].getState() == 0 && min > automat[j, k+1].nearest_exit)
+            {
+                next_x = j;
+                next_y = k + 1;
+                min = automat[j, k + 1].nearest_exit;
+            }
+            if (automat[j + 1, k + 1].getState() == 0 && min > automat[j+1, k+1].nearest_exit)
+            {
+                next_x = j + 1;
+                next_y = k + 1;
+                min = automat[j + 1, k + 1].nearest_exit;
+            }
+            if (automat[j + 1, k].getState() == 0 && min > automat[j+1, k].nearest_exit)
+            {
+                next_x = j + 1;
+                next_y = k;
+                min = automat[j + 1, k].nearest_exit;
+            }
+            if (automat[j + 1, k - 1].getState() == 0 && min > automat[j+1, k-1].nearest_exit)
+            {
+                next_x = j + 1;
+                next_y = k - 1;
+                min = automat[j + 1, k - 1].nearest_exit;
+            }
+            if (automat[j - 1, k + 1].getState() == 0 && min > automat[j-1, k+1].nearest_exit)
+            {
+                next_x = j - 1;
+                next_y = k + 1;
+                min = automat[j - 1, k + 1].nearest_exit;
+            }
+            if (automat[j - 1, k].getState() == 0 && min > automat[j-1, k].nearest_exit)
+            {
+                next_x = j - 1;
+                next_y = k;
+                min = automat[j - 1, k].nearest_exit;
+            }
+        }
+        async Task Start_sim()
         {
             var watch = new System.Diagnostics.Stopwatch();
             //DataBase.evac_time
-            for (int i=0; i< DataBase.evac_time*2; i++)
+            for (int i=0; i< DataBase.evac_time/4; i++)
             {
                 watch.Start();
                 //Automat Start
-
-
+                for(int j=1; j<29; ++j)
+                {
+                    for(int k=1; k< DataBase.automat_size-1; ++k)
+                    {
+                        if(automat[j,k].getState()==1 && !automat[j, k].moved)
+                        {
+                            find_min(j, k);
+                            automat[j, k].copy_cell(automat[next_x, next_y]);
+                        }
+                    }
+                }
+                for (int j = 1; j < 29; ++j)
+                {
+                    for (int k = 1; k < DataBase.automat_size - 1; ++k)
+                    {
+                        automat[j, k].moved = false;
+                    }
+                }
 
 
 
                 //Automat Stop
                 watch.Stop();
-                Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms");
+                Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms"+", turn: "+i+"/"+ DataBase.evac_time /4);
 
                 if (watch.ElapsedMilliseconds<500)
                 {
                     Thread.Sleep(500 - (int)watch.ElapsedMilliseconds);
                 }
 
-
-                stack.Source = BitmapToImageSource(B);
+                await Update_Net();
             }
 
         }
 
+        public async Task Update_Net()
+        {
+            int x = 1;
+            int y = 1;
+            for (int i = 1; i < 31; i++)
+            {
+                for (int j = 1; j < DataBase.automat_size + 1; j++)
+                {
+                    if (automat[i - 1, j - 1].getState() == 2)
+                    {
+                        x = j * 2;
+                        y = i * 2;
+
+                        B.SetPixel(x + 10, y + 110, System.Drawing.Color.Black); //(x,y)
+                        B.SetPixel(x + 11, y + 110, System.Drawing.Color.Black); //(x,y)
+                        B.SetPixel(x + 10, y + 111, System.Drawing.Color.Black); //(x,y)
+                        B.SetPixel(x + 11, y + 111, System.Drawing.Color.Black); //(x,y)
+                    }
+                    else if (automat[i - 1, j - 1].getState() == 1)
+                    {
+                        x = j * 2;
+                        y = i * 2;
+                        B.SetPixel(x + 10, y + 110, System.Drawing.Color.Red); //(x,y)
+                        B.SetPixel(x + 11, y + 110, System.Drawing.Color.Red); //(x,y)
+                        B.SetPixel(x + 10, y + 111, System.Drawing.Color.Red); //(x,y)
+                        B.SetPixel(x + 11, y + 111, System.Drawing.Color.Red); //(x,y)
+                    }
+                    else if ((automat[i - 1, j - 1].getState() == 3))
+                    {
+                        x = j * 2;
+                        y = i * 2;
+                        B.SetPixel(x + 10, y + 110, System.Drawing.Color.GreenYellow); //(x,y)
+                        B.SetPixel(x + 11, y + 110, System.Drawing.Color.GreenYellow); //(x,y)
+                        B.SetPixel(x + 10, y + 111, System.Drawing.Color.GreenYellow); //(x,y)
+                        B.SetPixel(x + 11, y + 111, System.Drawing.Color.GreenYellow); //(x,y)
+                    }
+                    else if((automat[i - 1, j - 1].getState() == 0))
+                    {
+                        x = j * 2;
+                        y = i * 2;
+                        B.SetPixel(x + 10, y + 110, System.Drawing.Color.White); //(x,y)
+                        B.SetPixel(x + 11, y + 110, System.Drawing.Color.White); //(x,y)
+                        B.SetPixel(x + 10, y + 111, System.Drawing.Color.White); //(x,y)
+                        B.SetPixel(x + 11, y + 111, System.Drawing.Color.White); //(x,y)
+                    }
+
+
+
+                }
+            }
+            
+            stack.Source = BitmapToImageSource(B);
+        }
         BitmapImage BitmapToImageSource(Bitmap bitmap)
         {
             using (MemoryStream memory = new MemoryStream())
