@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -14,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace TunnelEvacuationV1
 {
@@ -33,6 +35,10 @@ namespace TunnelEvacuationV1
         List<Pair> Exits = new List<Pair>();
 
         Bitmap B = new Bitmap(5096 * 2, 512);
+        WriteableBitmap B1 = new WriteableBitmap(100, 100, 300, 300, PixelFormats.Bgra32, null);
+
+        bool start = false;
+        private Timer timer1;
 
         int next_x, next_y;
 
@@ -41,6 +47,8 @@ namespace TunnelEvacuationV1
             InitializeComponent();
 
             Start.Click += Start_Click;
+            Stop.Click += Stop_Click;
+            Counter_label.Text = "0/" + DataBase.evac_time.ToString();
 
             for (int i = 0; i < 30; i++)
                 for (int j = 0; j < DataBase.automat_size; j++)
@@ -356,10 +364,39 @@ namespace TunnelEvacuationV1
             }
 
             Evaluate_exit_distance();
-
+            DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
+            dispatcherTimer.Start();
             // Start_sim();
         }
 
+        private void Stop_Click(object sender, RoutedEventArgs e)
+        {
+            start = false;
+        }
+        private async void Start_Click(object sender, RoutedEventArgs e)
+        {
+            start = true;
+        }
+
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            // Updating the Label which displays the current second
+            
+            if(start)
+            {
+                Start_sim();
+                Counter_label.Text = DataBase.current_time.ToString()+"/" + DataBase.evac_time.ToString();
+                DataBase.current_time++;
+            }
+
+            if (DataBase.current_time - 1 == DataBase.evac_time/4)
+                start = false;
+
+            // Forcing the CommandManager to raise the RequerySuggested event
+            CommandManager.InvalidateRequerySuggested();
+        }
         private void Evaluate_exit_distance()
         {
             for(int i=0; i<30; ++i)
@@ -377,10 +414,7 @@ namespace TunnelEvacuationV1
                 }
         }
 
-        private async void Start_Click(object sender, RoutedEventArgs e)
-        {
-           await Start_sim();
-        }
+      
 
         public void Draw_Emilia()
         {
@@ -542,13 +576,15 @@ namespace TunnelEvacuationV1
                 min = automat[j - 1, k].nearest_exit;
             }
         }
-        async Task Start_sim()
+
+    
+        void Start_sim()
         {
-            var watch = new System.Diagnostics.Stopwatch();
+           // var watch = new System.Diagnostics.Stopwatch();
             //DataBase.evac_time
-            for (int i=0; i< DataBase.evac_time/4; i++)
-            {
-                watch.Start();
+          //  for (int i=0; i< DataBase.evac_time/4; i++)
+            //{
+                //watch.Start();
                 //Automat Start
                 for(int j=1; j<29; ++j)
                 {
@@ -572,21 +608,29 @@ namespace TunnelEvacuationV1
 
 
                 //Automat Stop
-                watch.Stop();
-                Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms"+", turn: "+i+"/"+ DataBase.evac_time /4);
+              //  watch.Stop();
+                Console.WriteLine("Turn: "+ DataBase.current_time + "/"+ DataBase.evac_time /4);
 
-                if (watch.ElapsedMilliseconds<500)
-                {
-                    Thread.Sleep(500 - (int)watch.ElapsedMilliseconds);
-                }
+                //if (watch.ElapsedMilliseconds<500)
+                //{
+                //    Thread.Sleep(500 - (int)watch.ElapsedMilliseconds);
+                //}
 
-                await Update_Net();
-            }
+
+                // Application.Current.Dispatcher.Invoke(new Action(() => { stack.Source = BitmapToImageSource(Update_Net()); })); 
+                Update_Net();
+           // }
 
         }
 
-        public async Task Update_Net()
+        public void Update_Net()
         {
+            //b.dispatcher.begininvoke((sendorpostcallback)delegate
+            //{
+            //    console.writeline(@"work goes here");
+            //}, objs);
+
+            Bitmap B2 = new Bitmap(5096 * 2, 512);
             int x = 1;
             int y = 1;
             for (int i = 1; i < 31; i++)
@@ -635,7 +679,6 @@ namespace TunnelEvacuationV1
 
                 }
             }
-            
             stack.Source = BitmapToImageSource(B);
         }
         BitmapImage BitmapToImageSource(Bitmap bitmap)

@@ -25,6 +25,8 @@ namespace TunnelEvacuationV1
 
         public static int id_list = 0;
 
+        public static int current_time = 0;
+
         public static void evaluate_vehicles()
         {
             tir = (int)(tir_percent * vehicle_num);
