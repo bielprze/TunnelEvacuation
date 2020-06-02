@@ -41,6 +41,7 @@ namespace TunnelEvacuationV1
         private Timer timer1;
 
         int next_x, next_y;
+        int pedestrian_left = 0;
 
         public CA()
         {
@@ -49,6 +50,7 @@ namespace TunnelEvacuationV1
             Start.Click += Start_Click;
             Stop.Click += Stop_Click;
             Counter_label.Text = "0/" + DataBase.evac_time.ToString();
+
 
             for (int i = 0; i < 30; i++)
                 for (int j = 0; j < DataBase.automat_size; j++)
@@ -97,7 +99,9 @@ namespace TunnelEvacuationV1
                                 automat[a + k, b + j].setState(2);
                         tirs[i] = new Vehicle(0, a, b, random);
 
-                        double speed;
+                                DataBase.pedestrian_counter += tirs[i].passenger;
+                                pedestrian_left += tirs[i].passenger;
+                                double speed;
                         int panic;
                         switch (tirs[i].passenger)
                         {
@@ -132,10 +136,10 @@ namespace TunnelEvacuationV1
             }
 
                     for (int i = 0; i < DataBase.car; i++)
-            {
-                flag = true;
-                while_counter = 0;
-                while (true)
+                    {
+                        flag = true;
+                        while_counter = 0;
+                        while (true)
                 {
                     a = 4 + (random.Next(0, 2) * 10) + random.Next(0, 3);
                     b = random.Next(10, DataBase.automat_size - 35);
@@ -152,7 +156,10 @@ namespace TunnelEvacuationV1
                                 automat[a + k, b + j].setState(2);
                         cars[i] = new Vehicle(0, a, b, random);
 
-                        switch (cars[i].passenger)
+                                DataBase.pedestrian_counter += cars[i].passenger;
+                                pedestrian_left += cars[i].passenger;
+
+                                switch (cars[i].passenger)
                         {
                             case 1:
                                 automat[a - 1, b + 3].setState(1);
@@ -251,7 +258,7 @@ namespace TunnelEvacuationV1
                         break;
                 }
 
-            }
+                    }
 
                     for (int i = 0; i < DataBase.bike; i++)
             {
@@ -274,7 +281,11 @@ namespace TunnelEvacuationV1
                                 automat[a + k, b + j].setState(2);
                         bikes[i] = new Vehicle(0, a, b, random);
 
-                        switch (bikes[i].passenger)
+
+                                DataBase.pedestrian_counter += bikes[i].passenger;
+                                pedestrian_left += bikes[i].passenger;
+
+                                switch (bikes[i].passenger)
                         {
                             case 1:
                                 automat[a - 1, b].setState(1);
@@ -302,7 +313,8 @@ namespace TunnelEvacuationV1
                         break;
                 }
 
-            }
+                    }
+                    Counter_pedestrian.Text = pedestrian_left.ToString() + "/" + DataBase.pedestrian_counter.ToString();
                     break;
                 case 1:
                     a = 8;
@@ -313,6 +325,9 @@ namespace TunnelEvacuationV1
                             for (int k = 0; k < 6; k++)
                                 automat[a + k, b + j].setState(2);
                     Vehicle bus = new Vehicle(3, a, b, random);
+                    DataBase.pedestrian_counter = bus.passenger;
+                    pedestrian_left = bus.passenger;
+                    Counter_pedestrian.Text = pedestrian_left.ToString() + "/" + DataBase.pedestrian_counter.ToString();
 
                     int m, n;
                     Console.WriteLine(bus.passenger);
@@ -391,7 +406,7 @@ namespace TunnelEvacuationV1
                 DataBase.current_time++;
             }
 
-            if (DataBase.current_time - 1 == DataBase.evac_time/4)
+            if (DataBase.current_time - 1 == DataBase.evac_time)
                 start = false;
 
             // Forcing the CommandManager to raise the RequerySuggested event
@@ -533,6 +548,8 @@ namespace TunnelEvacuationV1
             next_y = k - 1;
             double min = automat[j-1, k-1].nearest_exit;
 
+
+
             if (automat[j, k - 1].getState() == 0 && min > automat[j, k-1].nearest_exit)
             {
                 next_x = j;
@@ -573,53 +590,77 @@ namespace TunnelEvacuationV1
             {
                 next_x = j - 1;
                 next_y = k;
-                min = automat[j - 1, k].nearest_exit;
+            }
+
+            ///////////////////
+            if (automat[j, k - 1].getState() == 3)
+            {
+                next_x = j;
+                next_y = k - 1;
+            }
+            if (automat[j, k + 1].getState() == 3)
+            {
+                next_x = j;
+                next_y = k + 1;
+            }
+            if (automat[j + 1, k + 1].getState() == 3)
+            {
+                next_x = j + 1;
+                next_y = k + 1;
+            }
+            if (automat[j + 1, k].getState() == 3 )
+            {
+                next_x = j + 1;
+                next_y = k;
+            }
+            if (automat[j + 1, k - 1].getState() == 3 )
+            {
+                next_x = j + 1;
+                next_y = k - 1;
+            }
+            if (automat[j - 1, k + 1].getState() == 3)
+            {
+                next_x = j - 1;
+                next_y = k + 1;
+            }
+            if (automat[j - 1, k].getState() == 3)
+            {
+                next_x = j - 1;
+                next_y = k;
             }
         }
 
     
         void Start_sim()
         {
-           // var watch = new System.Diagnostics.Stopwatch();
-            //DataBase.evac_time
-          //  for (int i=0; i< DataBase.evac_time/4; i++)
-            //{
-                //watch.Start();
-                //Automat Start
-                for(int j=1; j<29; ++j)
+            for(int j=1; j<29; ++j)
+            {
+                for(int k=1; k< DataBase.automat_size-1; ++k)
                 {
-                    for(int k=1; k< DataBase.automat_size-1; ++k)
+                    if(automat[j,k].getState()==1 && !automat[j, k].moved && automat[j, k].reaction>= DataBase.current_time)
                     {
-                        if(automat[j,k].getState()==1 && !automat[j, k].moved)
+                        find_min(j, k);
+                        if (automat[next_x, next_y].getState() == 3)
                         {
-                            find_min(j, k);
-                            automat[j, k].copy_cell(automat[next_x, next_y]);
+                            automat[j, k].zero_cell();
+                            pedestrian_left -= 1;
+                            Counter_pedestrian.Text = pedestrian_left.ToString() + "/" + DataBase.pedestrian_counter.ToString();
                         }
+                        else
+                            automat[j, k].copy_cell(automat[next_x, next_y]);
                     }
                 }
-                for (int j = 1; j < 29; ++j)
+            }
+            for (int j = 1; j < 29; ++j)
+            {
+                for (int k = 1; k < DataBase.automat_size - 1; ++k)
                 {
-                    for (int k = 1; k < DataBase.automat_size - 1; ++k)
-                    {
-                        automat[j, k].moved = false;
-                    }
+                    automat[j, k].moved = false;
                 }
+            }
 
-
-
-                //Automat Stop
-              //  watch.Stop();
-                Console.WriteLine("Turn: "+ DataBase.current_time + "/"+ DataBase.evac_time /4);
-
-                //if (watch.ElapsedMilliseconds<500)
-                //{
-                //    Thread.Sleep(500 - (int)watch.ElapsedMilliseconds);
-                //}
-
-
-                // Application.Current.Dispatcher.Invoke(new Action(() => { stack.Source = BitmapToImageSource(Update_Net()); })); 
-                Update_Net();
-           // }
+            Console.WriteLine("Turn: "+ DataBase.current_time + "/"+ DataBase.evac_time );
+            Update_Net();
 
         }
 

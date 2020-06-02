@@ -13,9 +13,10 @@ namespace TunnelEvacuationV1
 
         public static int evac_time = 420;
         public static int vehicle_num = 50;
-        public static int interval = 300;
+        public static int interval = 300; //odległość pomiędzy wyjściami ewakuacyjnymi
 
-        public static int tir;
+        //ilośc pojazdów
+        public static int tir; 
         public static int car;
         public static int bike;
 
@@ -23,9 +24,10 @@ namespace TunnelEvacuationV1
         public static double car_percent = 0.4;
         public static double bike_percent = 0.1;
 
-        public static int id_list = 0;
+        public static int id_list = 0; 
 
-        public static int current_time = 0;
+        public static int current_time = 0; //numer aktualnego ruchu
+        public static int pedestrian_counter = 0; //ilu zostało pieszych
 
         public static void evaluate_vehicles()
         {

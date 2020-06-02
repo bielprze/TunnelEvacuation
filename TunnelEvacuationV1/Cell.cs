@@ -11,12 +11,13 @@ namespace TunnelEvacuationV1
         public int panic; //0-100
         public double speed; //1-1.5
         public int state; // 0 - pusta, 1 - pieszy, 2 - przeszkoda 3 - wyjście
-        public int reaction;
+        public int reaction; //czas reakcji, chwilowo w turach automatu
 
-        public double nearest_exit;
-        public double attractiveness;
+        public double nearest_exit; //najbliższe wyjście od danej komórki
+        public double attractiveness; //atrakcyjnośc danej komórki. Jeśli jest odpowiednio duża to może zostać wybrana zamiast komórki o niższej odległości od wyjścia
 
-        public bool moved;
+        public bool moved; //czy komórka poruszyła się w danej turze
+
 
         public Cell(int p, double sp, int st)
         {
@@ -41,13 +42,22 @@ namespace TunnelEvacuationV1
             this.state = st;
         }
 
-        public void copy_cell(Cell new_one)
+        public void copy_cell(Cell new_one) // przesunięcie pieszego (i wszystkich jego statystyk) na nowe miejsce
         {
             new_one.panic = this.panic;
             new_one.speed = this.speed;
             new_one.state = this.state;
             new_one.reaction = this.reaction;
             new_one.moved = true;
+            this.panic = 0;
+            this.speed = 0;
+            this.state = 0;
+            this.reaction = 0;
+        }
+
+        public void zero_cell() // zerowanie komórki gdy pieszy ucieknie z tunelu
+        {
+            state = 0;
             this.panic = 0;
             this.speed = 0;
             this.state = 0;
