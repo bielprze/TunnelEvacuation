@@ -40,7 +40,7 @@ namespace TunnelEvacuationV1
             {
                 case 0:
                     if (tmp < 70)
-                        passenger = 1;
+                        passenger = 1;  
                     else
                         passenger = 2;
                     break;

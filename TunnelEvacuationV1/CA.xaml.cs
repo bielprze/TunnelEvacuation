@@ -37,19 +37,21 @@ namespace TunnelEvacuationV1
         Bitmap B = new Bitmap(5096 * 2, 512);
         WriteableBitmap B1 = new WriteableBitmap(100, 100, 300, 300, PixelFormats.Bgra32, null);
 
+        bool was_shown = false;
         bool start = false;
         private Timer timer1;
 
         int next_x, next_y;
         int pedestrian_left = 0;
-
+        int sec_time = 0;
         public CA()
         {
             InitializeComponent();
 
             Start.Click += Start_Click;
             Stop.Click += Stop_Click;
-            Counter_label.Text = "0/" + DataBase.evac_time.ToString();
+            Counter_label.Text = "Automat ticks: 0/" + (DataBase.evac_time*2).ToString();
+            Time_label.Text = "Time [s]: 0/" + (DataBase.evac_time).ToString();
 
 
             for (int i = 0; i < 30; i++)
@@ -314,7 +316,7 @@ namespace TunnelEvacuationV1
                 }
 
                     }
-                    Counter_pedestrian.Text = pedestrian_left.ToString() + "/" + DataBase.pedestrian_counter.ToString();
+                    Counter_pedestrian.Text = "Pedestrians: "+pedestrian_left.ToString() + "/" + DataBase.pedestrian_counter.ToString();
                     break;
                 case 1:
                     a = 8;
@@ -327,7 +329,7 @@ namespace TunnelEvacuationV1
                     Vehicle bus = new Vehicle(3, a, b, random);
                     DataBase.pedestrian_counter = bus.passenger;
                     pedestrian_left = bus.passenger;
-                    Counter_pedestrian.Text = pedestrian_left.ToString() + "/" + DataBase.pedestrian_counter.ToString();
+                    Counter_pedestrian.Text = "Pedestrians: " + pedestrian_left.ToString() + "/" + DataBase.pedestrian_counter.ToString();
 
                     int m, n;
                     Console.WriteLine(bus.passenger);
@@ -386,6 +388,7 @@ namespace TunnelEvacuationV1
             // Start_sim();
         }
 
+
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
             start = false;
@@ -393,6 +396,7 @@ namespace TunnelEvacuationV1
         private async void Start_Click(object sender, RoutedEventArgs e)
         {
             start = true;
+            sec_time = 0;
         }
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
@@ -401,13 +405,42 @@ namespace TunnelEvacuationV1
             
             if(start)
             {
-                Start_sim();
-                Counter_label.Text = DataBase.current_time.ToString()+"/" + DataBase.evac_time.ToString();
+                Sim_move();
+                Counter_label.Text = "Automat Ticks: "+ DataBase.current_time.ToString()+"/" + (DataBase.evac_time * 2).ToString();
+                if (DataBase.current_time % 2 == 0)
+                    Time_label.Text = "Time [s]: " + (sec_time++) + "/" + DataBase.evac_time;
                 DataBase.current_time++;
             }
 
-            if (DataBase.current_time - 1 == DataBase.evac_time)
+            if (DataBase.current_time - 1 == DataBase.evac_time*2)
+            {
                 start = false;
+                if (!was_shown)
+                {
+                    if (pedestrian_left == 0)
+                    {
+                        var newForm = new PopUp(sec_time, pedestrian_left, DataBase.pedestrian_counter, true); //create your new form.
+                        newForm.Show();
+                        was_shown = true;
+                    }
+                    else
+                    {
+                        var newForm = new PopUp(sec_time, pedestrian_left, DataBase.pedestrian_counter, false); //create your new form.
+                        newForm.Show(); 
+                        was_shown = true;
+                    }
+                }
+            }
+            if (pedestrian_left == 0)
+            {
+                start = false;
+                if (!was_shown)
+                {
+                    var newForm = new PopUp(sec_time, pedestrian_left, DataBase.pedestrian_counter, true); //create your new form.
+                    newForm.Show();
+                    was_shown = true;
+                }
+            }
 
             // Forcing the CommandManager to raise the RequerySuggested event
             CommandManager.InvalidateRequerySuggested();
@@ -490,8 +523,8 @@ namespace TunnelEvacuationV1
                     B.SetPixel(i, j, System.Drawing.Color.White);
 
 
-            int x = 1;
-            int y = 1;
+            int x;
+            int y;
             for (int i = 1; i < 31; i++)
             {
                 for (int j = 1; j < 5001; j++)
@@ -546,53 +579,78 @@ namespace TunnelEvacuationV1
         {
             next_x = j - 1;
             next_y = k - 1;
-            double min = automat[j-1, k-1].nearest_exit;
+            double min = 1000000000;
 
 
 
-            if (automat[j, k - 1].getState() == 0 && min > automat[j, k-1].nearest_exit)
+
+
+
+
+
+            if (automat[j, k].panic < 0.1)
             {
-                next_x = j;
-                next_y = k - 1;
-                min = automat[j, k - 1].nearest_exit;
+                if (automat[j - 1, k - 1].getState() == 0 && min > automat[j - 1, k - 1].nearest_exit)
+                {
+                    next_x = j - 1;
+                    next_y = k - 1;
+                    min = automat[j - 1, k - 1].nearest_exit;
+                }
+                if (automat[j, k - 1].getState() == 0 && min > automat[j, k - 1].nearest_exit)
+                {
+                    next_x = j;
+                    next_y = k - 1;
+                    min = automat[j, k - 1].nearest_exit;
+                }
+                if (automat[j, k + 1].getState() == 0 && min > automat[j, k + 1].nearest_exit)
+                {
+                    next_x = j;
+                    next_y = k + 1;
+                    min = automat[j, k + 1].nearest_exit;
+                }
+                if (automat[j + 1, k + 1].getState() == 0 && min > automat[j + 1, k + 1].nearest_exit)
+                {
+                    next_x = j + 1;
+                    next_y = k + 1;
+                    min = automat[j + 1, k + 1].nearest_exit;
+                }
+                if (automat[j + 1, k].getState() == 0 && min > automat[j + 1, k].nearest_exit)
+                {
+                    next_x = j + 1;
+                    next_y = k;
+                    min = automat[j + 1, k].nearest_exit;
+                }
+                if (automat[j + 1, k - 1].getState() == 0 && min > automat[j + 1, k - 1].nearest_exit)
+                {
+                    next_x = j + 1;
+                    next_y = k - 1;
+                    min = automat[j + 1, k - 1].nearest_exit;
+                }
+                if (automat[j - 1, k + 1].getState() == 0 && min > automat[j - 1, k + 1].nearest_exit)
+                {
+                    next_x = j - 1;
+                    next_y = k + 1;
+                    min = automat[j - 1, k + 1].nearest_exit;
+                }
+                if (automat[j - 1, k].getState() == 0 && min > automat[j - 1, k].nearest_exit)
+                {
+                    next_x = j - 1;
+                    next_y = k;
+                }
             }
-            if (automat[j, k + 1].getState() == 0 && min > automat[j, k+1].nearest_exit)
-            {
-                next_x = j;
-                next_y = k + 1;
-                min = automat[j, k + 1].nearest_exit;
-            }
-            if (automat[j + 1, k + 1].getState() == 0 && min > automat[j+1, k+1].nearest_exit)
-            {
-                next_x = j + 1;
-                next_y = k + 1;
-                min = automat[j + 1, k + 1].nearest_exit;
-            }
-            if (automat[j + 1, k].getState() == 0 && min > automat[j+1, k].nearest_exit)
-            {
-                next_x = j + 1;
-                next_y = k;
-                min = automat[j + 1, k].nearest_exit;
-            }
-            if (automat[j + 1, k - 1].getState() == 0 && min > automat[j+1, k-1].nearest_exit)
-            {
-                next_x = j + 1;
-                next_y = k - 1;
-                min = automat[j + 1, k - 1].nearest_exit;
-            }
-            if (automat[j - 1, k + 1].getState() == 0 && min > automat[j-1, k+1].nearest_exit)
-            {
-                next_x = j - 1;
-                next_y = k + 1;
-                min = automat[j - 1, k + 1].nearest_exit;
-            }
-            if (automat[j - 1, k].getState() == 0 && min > automat[j-1, k].nearest_exit)
-            {
-                next_x = j - 1;
-                next_y = k;
-            }
+
+
+
+
+
+
 
             ///////////////////
+            if (automat[j - 1, k - 1].getState() == 3)
+            {
+                next_x = j - 1;
+                next_y = k - 1;
+            }
             if (automat[j, k - 1].getState() == 3)
             {
                 next_x = j;
@@ -631,20 +689,20 @@ namespace TunnelEvacuationV1
         }
 
     
-        void Start_sim()
+        void Sim_move()
         {
             for(int j=1; j<29; ++j)
             {
                 for(int k=1; k< DataBase.automat_size-1; ++k)
                 {
-                    if(automat[j,k].getState()==1 && !automat[j, k].moved && automat[j, k].reaction>= DataBase.current_time)
+                    if(automat[j,k].getState()==1 && !automat[j, k].moved && !(automat[j, k].reaction >= DataBase.current_time))
                     {
                         find_min(j, k);
                         if (automat[next_x, next_y].getState() == 3)
                         {
                             automat[j, k].zero_cell();
                             pedestrian_left -= 1;
-                            Counter_pedestrian.Text = pedestrian_left.ToString() + "/" + DataBase.pedestrian_counter.ToString();
+                            Counter_pedestrian.Text = "Pedestrians: "+ pedestrian_left.ToString() + "/" + DataBase.pedestrian_counter.ToString();
                         }
                         else
                             automat[j, k].copy_cell(automat[next_x, next_y]);

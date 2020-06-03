@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TunnelEvacuationV1"
         mc:Ignorable="d"
-        Title="CA" Height="650" Width="800">
+        Title="CA" Height="650" Width="950">
     <StackPanel>
     <ScrollViewer HorizontalScrollBarVisibility="Auto">
         <Image VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="stack">
@@ -15,19 +15,23 @@
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
 
-            <Button  Grid.Column="0" Grid.Row="0"  Name="Start" Content="Rozpocznij symulacje" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Margin="15" />
-            <Button  Grid.Column="1" Grid.Row="0"  Name="Stop" Content="Zakończ symulacje" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Margin="15" />
-            <TextBlock  Grid.Column="2" Grid.Row="0" Name="Counter_label" Text="0/0"   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
-            <TextBlock  Grid.Column="3" Grid.Row="0" Name="Counter_pedestrian" Text="0/0"   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
+            <Button  Grid.Column="0" Grid.Row="0"  Name="Start" Content="Start" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Margin="10" />
+            <Button  Grid.Column="1" Grid.Row="0"  Name="Stop" Content="Stop" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Margin="10" />
+            <TextBlock  Grid.Column="2" Grid.Row="0" Name="Time_label" Text="0/0"   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
+            <TextBlock  Grid.Column="3" Grid.Row="0" Name="Counter_label" Text="0/0"   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
+            <TextBlock  Grid.Column="4" Grid.Row="0" Name="Counter_pedestrian" Text="0/0"   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
         </Grid>
+
     </StackPanel>
+    
 </Window>
