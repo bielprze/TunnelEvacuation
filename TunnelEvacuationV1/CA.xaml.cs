@@ -30,12 +30,11 @@ namespace TunnelEvacuationV1
         Vehicle[] bikes = new Vehicle[DataBase.bike];
 
         Cell[,] automat = new Cell[30, DataBase.automat_size];
-
+        Random random;
 
         List<Pair> Exits = new List<Pair>();
 
         Bitmap B = new Bitmap(5096 * 2, 512);
-        WriteableBitmap B1 = new WriteableBitmap(100, 100, 300, 300, PixelFormats.Bgra32, null);
 
         bool was_shown = false;
         bool start = false;
@@ -67,7 +66,7 @@ namespace TunnelEvacuationV1
                 automat[29, j].setState(2);
 
 
-            Random random = new Random();
+            random = new Random();
             int temp;
             int line_no;
             bool ready = false;
@@ -575,77 +574,590 @@ namespace TunnelEvacuationV1
 
         }
 
+
+        public void min_distance(int j, int k)
+        {
+            double min = 1000000000;
+            if (automat[j - 1, k - 1].getState() == 0 && min > automat[j - 1, k - 1].nearest_exit)
+            {
+                next_x = j - 1;
+                next_y = k - 1;
+                min = automat[j - 1, k - 1].nearest_exit;
+            }
+            if (automat[j, k - 1].getState() == 0 && min > automat[j, k - 1].nearest_exit)
+            {
+                next_x = j;
+                next_y = k - 1;
+                min = automat[j, k - 1].nearest_exit;
+            }
+            if (automat[j, k + 1].getState() == 0 && min > automat[j, k + 1].nearest_exit)
+            {
+                next_x = j;
+                next_y = k + 1;
+                min = automat[j, k + 1].nearest_exit;
+            }
+            if (automat[j + 1, k + 1].getState() == 0 && min > automat[j + 1, k + 1].nearest_exit) //
+            {
+                next_x = j + 1;
+                next_y = k + 1;
+                min = automat[j + 1, k + 1].nearest_exit;
+            }
+            if (automat[j + 1, k].getState() == 0 && min > automat[j + 1, k].nearest_exit) //
+            {
+                next_x = j + 1;
+                next_y = k;
+                min = automat[j + 1, k].nearest_exit;
+            }
+            if (automat[j + 1, k - 1].getState() == 0 && min > automat[j + 1, k - 1].nearest_exit) //
+            {
+                next_x = j + 1;
+                next_y = k - 1;
+                min = automat[j + 1, k - 1].nearest_exit;
+            }
+            if (automat[j - 1, k + 1].getState() == 0 && min > automat[j - 1, k + 1].nearest_exit) //
+            {
+                next_x = j - 1;
+                next_y = k + 1;
+                min = automat[j - 1, k + 1].nearest_exit;
+            }
+            if (automat[j - 1, k].getState() == 0 && min > automat[j - 1, k].nearest_exit) //
+            {
+                next_x = j - 1;
+                next_y = k;
+            }
+            if(min== 1000000000)
+            {
+                next_x = j;
+                next_y = k;
+            }
+
+        }
+        public void half_reasonable(int j, int k, Random r)
+        {
+            double min = 1000000000;
+            int dir = r.Next(1, 4);
+
+            if (automat[j - 1, k - 1].getState() == 0 && min > automat[j - 1, k - 1].nearest_exit)
+            {
+                min = automat[j - 1, k - 1].nearest_exit;
+
+                switch(dir)
+                {
+                    case 1:
+                        next_x = j - 1;
+                        next_y = k - 1;
+                        break;
+                    case 2:
+                        if (automat[j - 1, k].getState() == 0)
+                        {
+                            next_x = j - 1;
+                            next_y = k;
+                        }
+                        else
+                        {
+                            next_x = j - 1;
+                            next_y = k - 1;
+                        }
+                        break;
+                    case 3:
+                        if (automat[j, k - 1].getState() == 0)
+                        {
+                            next_x = j;
+                            next_y = k - 1;
+                        }
+                        else
+                        {
+                            next_x = j - 1;
+                            next_y = k - 1;
+                        }
+                        break;
+                }
+            }
+            if (automat[j, k - 1].getState() == 0 && min > automat[j, k - 1].nearest_exit)
+            {
+                min = automat[j, k - 1].nearest_exit;
+                switch (dir)
+                {
+                    case 1:
+                        next_x = j;
+                        next_y = k - 1;
+                        break;
+                    case 2:
+                        if (automat[j - 1, k - 1].getState() == 0)
+                        {
+                            next_x = j - 1;
+                            next_y = k - 1;
+                        }
+                        else
+                        {
+                            next_x = j;
+                            next_y = k - 1;
+                        }
+                        break;
+                    case 3:
+                        if (automat[j + 1, k - 1].getState() == 0)
+                        {
+                            next_x = j + 1;
+                            next_y = k - 1;
+                        }
+                        else
+                        {
+                            next_x = j;
+                            next_y = k - 1;
+                        }
+                        break;
+                }
+            }
+            if (automat[j, k + 1].getState() == 0 && min > automat[j, k + 1].nearest_exit)
+            {
+                min = automat[j, k + 1].nearest_exit;
+                switch (dir)
+                {
+                    case 1:
+                        next_x = j;
+                        next_y = k + 1;
+                        break;
+                    case 2:
+                        if (automat[j - 1, k + 1].getState() == 0)
+                        {
+                            next_x = j - 1;
+                            next_y = k + 1;
+                        }
+                        else
+                        {
+                            next_x = j;
+                            next_y = k + 1;
+                        }
+                        break;
+                    case 3:
+                        if (automat[j + 1, k + 1].getState() == 0)
+                        {
+                            next_x = j + 1;
+                            next_y = k + 1;
+                        }
+                        else
+                        {
+                            next_x = j;
+                            next_y = k + 1;
+                        }
+                        break;
+                }
+            }
+            if (automat[j + 1, k + 1].getState() == 0 && min > automat[j + 1, k + 1].nearest_exit) //
+            {
+                min = automat[j + 1, k + 1].nearest_exit;
+                switch (dir)
+                {
+                    case 1:
+                        next_x = j + 1;
+                        next_y = k + 1;
+                        break;
+                    case 2:
+                        if (automat[j, k + 1].getState() == 0)
+                        {
+                            next_x = j;
+                            next_y = k + 1;
+                        }
+                        else
+                        {
+                            next_x = j + 1;
+                            next_y = k + 1;
+                        }
+                        break;
+                    case 3:
+                        if (automat[j + 1, k].getState() == 0)
+                        {
+                            next_x = j + 1;
+                            next_y = k;
+                        }
+                        else
+                        {
+                            next_x = j + 1;
+                            next_y = k + 1;
+                        }
+                        break;
+                }
+            }
+            if (automat[j + 1, k].getState() == 0 && min > automat[j + 1, k].nearest_exit) //
+            {
+                min = automat[j + 1, k].nearest_exit;
+                switch (dir)
+                {
+                    case 1:
+                        next_x = j + 1;
+                        next_y = k;
+                        break;
+                    case 2:
+                        if (automat[j+1, k + 1].getState() == 0)
+                        {
+                            next_x = j + 1;
+                            next_y = k + 1;
+                        }
+                        else
+                        {
+                            next_x = j + 1;
+                            next_y = k;
+                        }
+                        break;
+                    case 3:
+                        if (automat[j + 1, k - 1].getState() == 0)
+                        {
+                            next_x = j + 1;
+                            next_y = k - 1;
+                        }
+                        else
+                        {
+                            next_x = j + 1;
+                            next_y = k;
+                        }
+                        break;
+                }
+            }
+            if (automat[j + 1, k - 1].getState() == 0 && min > automat[j + 1, k - 1].nearest_exit) //
+            {
+                min = automat[j + 1, k - 1].nearest_exit;
+                switch (dir)
+                {
+                    case 1:
+                        next_x = j + 1;
+                        next_y = k - 1;
+                        break;
+                    case 2:
+                        if (automat[j + 1, k].getState() == 0)
+                        {
+                            next_x = j + 1;
+                            next_y = k;
+                        }
+                        else
+                        {
+                            next_x = j + 1;
+                            next_y = k - 1;
+                        }
+                        break;
+                    case 3:
+                        if (automat[j, k - 1].getState() == 0)
+                        {
+                            next_x = j;
+                            next_y = k - 1;
+                        }
+                        else
+                        {
+                            next_x = j + 1;
+                            next_y = k - 1;
+                        }
+                        break;
+                }
+            }
+            if (automat[j - 1, k + 1].getState() == 0 && min > automat[j - 1, k + 1].nearest_exit) //
+            {
+                min = automat[j - 1, k + 1].nearest_exit;
+                switch (dir)
+                {
+                    case 1:
+                        next_x = j - 1;
+                        next_y = k + 1;
+                        break;
+                    case 2:
+                        if (automat[j - 1, k].getState() == 0)
+                        {
+                            next_x = j - 1;
+                            next_y = k;
+                        }
+                        else
+                        {
+                            next_x = j - 1;
+                            next_y = k + 1;
+                        }
+                        break;
+                    case 3:
+                        if (automat[j, k + 1].getState() == 0)
+                        {
+                            next_x = j;
+                            next_y = k + 1;
+                        }
+                        else
+                        {
+                            next_x = j - 1;
+                            next_y = k + 1;
+                        }
+                        break;
+                }
+            }
+            if (automat[j - 1, k].getState() == 0 && min > automat[j - 1, k].nearest_exit) //
+            {
+                switch (dir)
+                {
+                    case 1:
+                        next_x = j - 1;
+                        next_y = k;
+                        break;
+                    case 2:
+                        if (automat[j - 1, k + 1].getState() == 0)
+                        {
+                            next_x = j - 1;
+                            next_y = k + 1;
+                        }
+                        else
+                        {
+                            next_x = j - 1;
+                            next_y = k;
+                        }
+                        break;
+                    case 3:
+                        if (automat[j - 1, k + 1].getState() == 0)
+                        {
+                            next_x = j - 1;
+                            next_y = k + 1;
+                        }
+                        else
+                        {
+                            next_x = j - 1;
+                            next_y = k;
+                        }
+                        break;
+                }
+            }
+        }
+
+        public void full_panic(int j, int k, Random r)
+        {
+            int loop_counter = 0;
+            while (true)
+            {
+                switch (r.Next(0, 9))
+                {
+                    case 0:
+                        next_x = j - 1;
+                        next_y = k - 1;
+                        break;
+                    case 1:
+                        next_x = j;
+                        next_y = k - 1;
+                        break;
+                    case 2:
+                        next_x = j;
+                        next_y = k + 1;
+                        break;
+                    case 3:
+                        next_x = j + 1;
+                        next_y = k + 1;
+                        break;
+                    case 4:
+                        next_x = j + 1;
+                        next_y = k;
+                        break;
+                    case 5:
+                        next_x = j + 1;
+                        next_y = k - 1;
+                        break;
+                    case 6:
+                        next_x = j - 1;
+                        next_y = k + 1;
+                        break;
+                    case 7:
+                        next_x = j - 1;
+                        next_y = k;
+                        break;
+                    case 8:
+                        next_x = j;
+                        next_y = k;
+                        break;
+                }
+
+                if (automat[next_x, next_y].getState() == 0)
+                    break;
+                else if (next_x == j && next_y == k)
+                    break;
+                else if (loop_counter>10)
+                {
+                    next_x = j;
+                    next_y = k;
+                    break;
+                }
+                ++loop_counter;
+            }
+        }
         public void find_min(int j, int k)
         {
             next_x = j - 1;
             next_y = k - 1;
             double min = 1000000000;
+            int rand_check;
+            double[] dist_array = { automat[j - 1, k - 1].nearest_exit, automat[j, k - 1].nearest_exit, automat[j, k + 1].nearest_exit, automat[j + 1, k + 1].nearest_exit, automat[j + 1, k].nearest_exit, automat[j + 1, k - 1].nearest_exit, automat[j - 1, k + 1].nearest_exit, automat[j - 1, k].nearest_exit };
+            /*
+                0: j-1, k-1
+                1: j  , k-1
+                2: j  , k+1
+                3: j+1, k+1
+                4: j+1, k
+                5: j+1, k-1
+                6: j-1, k+1
+                7: j-1, k
+            */
 
 
 
 
-
-
-
-
-            if (automat[j, k].panic < 0.1)
+            rand_check = random.Next(0, 100);
+            if (automat[j, k].panic <= 10)
             {
-                if (automat[j - 1, k - 1].getState() == 0 && min > automat[j - 1, k - 1].nearest_exit)
+                    min_distance(j, k);
+            }
+            else if (automat[j, k].panic <= 20)
+            {
+                if (rand_check < 90)
                 {
-                    next_x = j - 1;
-                    next_y = k - 1;
-                    min = automat[j - 1, k - 1].nearest_exit;
+                    min_distance(j, k);
                 }
-                if (automat[j, k - 1].getState() == 0 && min > automat[j, k - 1].nearest_exit)
+                else if (rand_check < 98)
                 {
-                    next_x = j;
-                    next_y = k - 1;
-                    min = automat[j, k - 1].nearest_exit;
+                    half_reasonable(j, k, random);
                 }
-                if (automat[j, k + 1].getState() == 0 && min > automat[j, k + 1].nearest_exit)
+                else
                 {
-                    next_x = j;
-                    next_y = k + 1;
-                    min = automat[j, k + 1].nearest_exit;
+                    full_panic(j, k, random);
                 }
-                if (automat[j + 1, k + 1].getState() == 0 && min > automat[j + 1, k + 1].nearest_exit)
+            }
+            else if (automat[j, k].panic <= 30)
+            {
+                if (rand_check < 80)
                 {
-                    next_x = j + 1;
-                    next_y = k + 1;
-                    min = automat[j + 1, k + 1].nearest_exit;
+                    min_distance(j, k);
                 }
-                if (automat[j + 1, k].getState() == 0 && min > automat[j + 1, k].nearest_exit)
+                else if (rand_check < 95)
                 {
-                    next_x = j + 1;
-                    next_y = k;
-                    min = automat[j + 1, k].nearest_exit;
+                    half_reasonable(j, k, random);
                 }
-                if (automat[j + 1, k - 1].getState() == 0 && min > automat[j + 1, k - 1].nearest_exit)
+                else
                 {
-                    next_x = j + 1;
-                    next_y = k - 1;
-                    min = automat[j + 1, k - 1].nearest_exit;
+                    full_panic(j, k, random);
                 }
-                if (automat[j - 1, k + 1].getState() == 0 && min > automat[j - 1, k + 1].nearest_exit)
+            }
+            else if (automat[j, k].panic <= 40)
+            {
+
+                if (rand_check < 70)
                 {
-                    next_x = j - 1;
-                    next_y = k + 1;
-                    min = automat[j - 1, k + 1].nearest_exit;
+                    min_distance(j, k);
                 }
-                if (automat[j - 1, k].getState() == 0 && min > automat[j - 1, k].nearest_exit)
+                else if (rand_check < 21)
                 {
-                    next_x = j - 1;
-                    next_y = k;
+                    half_reasonable(j, k, random);
+                }
+                else
+                {
+                    full_panic(j, k, random);
+                }
+            }
+            else if (automat[j, k].panic <= 50)
+            {
+                if (rand_check < 60)
+                {
+                    min_distance(j, k);
+                }
+                else if (rand_check < 26)
+                {
+                    half_reasonable(j, k, random);
+                }
+                else
+                {
+                    full_panic(j, k, random);
+                }
+            }
+            else if (automat[j, k].panic <= 60)
+            {
+                if (rand_check < 50)
+                {
+                    min_distance(j, k);
+                }
+                else if (rand_check < 30)
+                {
+                    half_reasonable(j, k, random);
+                }
+                else
+                {
+                    full_panic(j, k, random);
+                }
+            }
+            else if (automat[j, k].panic <= 70)
+            {
+                if (rand_check < 40)
+                {
+                    min_distance(j, k);
+                }
+                else if (rand_check < 33)
+                {
+                    half_reasonable(j, k, random);
+                }
+                else
+                {
+                    full_panic(j, k, random);
+                }
+            }
+            else if (automat[j, k].panic <= 80)
+            {
+                if (rand_check < 30)
+                {
+                    min_distance(j, k);
+                }
+                else if (rand_check < 35)
+                {
+                    half_reasonable(j, k, random);
+                }
+                else
+                {
+                    full_panic(j, k, random);
+                }
+            }
+            else if (automat[j, k].panic <= 90)
+            {
+                if (rand_check < 20)
+                {
+                    min_distance(j, k);
+                }
+                else if (rand_check < 36)
+                {
+                    half_reasonable(j, k, random);
+                }
+                else
+                {
+                    full_panic(j, k, random);
+                }
+            }
+            else if (automat[j, k].panic <= 99)
+            {
+                if (rand_check < 10)
+                {
+                    min_distance(j, k);
+                }
+                else if (rand_check < 37)
+                {
+                    half_reasonable(j, k, random);
+                }
+                else
+                {
+                    full_panic(j, k, random);
+                }
+            }
+            else 
+            {
+                if (rand_check < 0)
+                {
+                    min_distance(j, k);
+                }
+                else if (rand_check < 20)
+                {
+                    half_reasonable(j, k, random);
+                }
+                else
+                {
+                    full_panic(j, k, random);
                 }
             }
 
 
 
-
-
-
-
-            ///////////////////
+                ///////////////////
             if (automat[j - 1, k - 1].getState() == 3)
             {
                 next_x = j - 1;
@@ -691,21 +1203,38 @@ namespace TunnelEvacuationV1
     
         void Sim_move()
         {
+            int panic_chance;
             for(int j=1; j<29; ++j)
             {
                 for(int k=1; k< DataBase.automat_size-1; ++k)
                 {
-                    if(automat[j,k].getState()==1 && !automat[j, k].moved && !(automat[j, k].reaction >= DataBase.current_time))
+                    if(automat[j,k].getState()==1 && !automat[j, k].moved)
                     {
-                        find_min(j, k);
-                        if (automat[next_x, next_y].getState() == 3)
+                        if (!(automat[j, k].reaction >= DataBase.current_time))
                         {
-                            automat[j, k].zero_cell();
-                            pedestrian_left -= 1;
-                            Counter_pedestrian.Text = "Pedestrians: "+ pedestrian_left.ToString() + "/" + DataBase.pedestrian_counter.ToString();
+                            find_min(j, k);
+                            if (automat[next_x, next_y].getState() == 3)
+                            {
+                                automat[j, k].zero_cell();
+                                pedestrian_left -= 1;
+                                Counter_pedestrian.Text = "Pedestrians: " + pedestrian_left.ToString() + "/" + DataBase.pedestrian_counter.ToString();
+                            }
+                            else
+                            {
+                                if(next_y != k || next_x != j)
+                                    automat[j, k].copy_cell(automat[next_x, next_y]);
+                            }
+
+                            panic_chance = random.Next(0,100);
+                            if (panic_chance < 30)
+                                automat[next_x, next_y].panic += 1;
                         }
                         else
-                            automat[j, k].copy_cell(automat[next_x, next_y]);
+                        {
+                            panic_chance = random.Next(0, 100);
+                            if (panic_chance < 30)
+                                automat[j, k].panic += 1;
+                        }
                     }
                 }
             }
