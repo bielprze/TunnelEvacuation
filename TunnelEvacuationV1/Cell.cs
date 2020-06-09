@@ -9,7 +9,7 @@ namespace TunnelEvacuationV1
     class Cell
     {
         public int panic; //0-100
-        public double speed; //1-1.5
+        public double speed; // 0.8 / 1.2 / 1.6 / 2.0 / 2.4 / 2.8 / 3.2 / 3.6 / 4.0
         public int state; // 0 - pusta, 1 - pieszy, 2 - przeszkoda 3 - wyjście
         public int reaction; //czas reakcji, chwilowo w turach automatu
 

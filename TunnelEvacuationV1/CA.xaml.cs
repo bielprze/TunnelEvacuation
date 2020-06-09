@@ -108,18 +108,18 @@ namespace TunnelEvacuationV1
                         {
                             case 1:
                                 automat[a - 1, b + 5].setState(1);
-                                automat[a - 1, b + 5].panic = random.Next(0, 30);
+                                automat[a - 1, b + 5].panic = random.Next(50, 75);
                                 automat[a - 1, b + 5].reaction = tirs[i].passengers_reaction_time;
                                 automat[a - 1, b + 5].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
                                 break;
                             case 2:
                                 automat[a - 1, b + 5].setState(1);
-                                automat[a - 1, b + 5].panic = random.Next(0, 30);
+                                automat[a - 1, b + 5].panic = random.Next(50, 75);
                                 automat[a - 1, b + 5].reaction = tirs[i].passengers_reaction_time;
                                 automat[a - 1, b + 5].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
 
                                 automat[a + 6, b + 5].setState(1);
-                                automat[a + 6, b + 5].panic = random.Next(0, 30);
+                                automat[a + 6, b + 5].panic = random.Next(50, 75);
                                 automat[a + 6, b + 5].reaction = tirs[i].passengers_reaction_time;
                                 automat[a + 6, b + 5].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
                                 break;
@@ -164,85 +164,85 @@ namespace TunnelEvacuationV1
                         {
                             case 1:
                                 automat[a - 1, b + 3].setState(1);
-                                automat[a - 1, b + 3].panic = random.Next(0, 30);
+                                automat[a - 1, b + 3].panic = random.Next(50, 75);
                                 automat[a - 1, b + 3].reaction = cars[i].passengers_reaction_time;
                                 automat[a - 1, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
                                 break;
 
                             case 2:
                                 automat[a - 1, b + 3].setState(1);
-                                automat[a - 1, b + 3].panic = random.Next(0, 30);
+                                automat[a - 1, b + 3].panic = random.Next(50, 75);
                                 automat[a - 1, b + 3].reaction = cars[i].passengers_reaction_time;
                                 automat[a - 1, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
 
                                 automat[a + 4, b + 3].setState(1);
-                                automat[a + 4, b + 3].panic = random.Next(0, 30);
+                                automat[a + 4, b + 3].panic = random.Next(50, 75);
                                 automat[a + 4, b + 3].reaction = cars[i].passengers_reaction_time;
                                 automat[a + 4, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
                                 break;
 
                             case 3:
                                 automat[a - 1, b + 3].setState(1);
-                                automat[a - 1, b + 3].panic = random.Next(0, 30);
+                                automat[a - 1, b + 3].panic = random.Next(50, 75);
                                 automat[a - 1, b + 3].reaction = cars[i].passengers_reaction_time;
                                 automat[a - 1, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
 
                                 automat[a + 4, b + 3].setState(1);
-                                automat[a + 4, b + 3].panic = random.Next(0, 30);
+                                automat[a + 4, b + 3].panic = random.Next(50, 75);
                                 automat[a + 4, b + 3].reaction = cars[i].passengers_reaction_time;
                                 automat[a + 4, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
 
                                 automat[a - 1, b + 7].setState(1);
-                                automat[a - 1, b + 7].panic = random.Next(0, 30);
+                                automat[a - 1, b + 7].panic = random.Next(50, 75);
                                 automat[a - 1, b + 7].reaction = cars[i].passengers_reaction_time;
                                 automat[a - 1, b + 7].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
                                 break;
 
                             case 4:
                                 automat[a - 1, b + 3].setState(1);
-                                automat[a - 1, b + 3].panic = random.Next(0, 30);
+                                automat[a - 1, b + 3].panic = random.Next(50, 75);
                                 automat[a - 1, b + 3].reaction = cars[i].passengers_reaction_time;
                                 automat[a - 1, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
 
                                 automat[a + 4, b + 3].setState(1);
-                                automat[a + 4, b + 3].panic = random.Next(0, 30);
+                                automat[a + 4, b + 3].panic = random.Next(50, 75);
                                 automat[a + 4, b + 3].reaction = cars[i].passengers_reaction_time;
                                 automat[a + 4, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
 
                                 automat[a - 1, b + 7].setState(1);
-                                automat[a - 1, b + 7].panic = random.Next(0, 30);
+                                automat[a - 1, b + 7].panic = random.Next(50, 75);
                                 automat[a - 1, b + 7].reaction = cars[i].passengers_reaction_time;
                                 automat[a - 1, b + 7].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
 
                                 automat[a + 4, b + 7].setState(1);
-                                automat[a + 4, b + 7].panic = random.Next(0, 30);
+                                automat[a + 4, b + 7].panic = random.Next(50, 75);
                                 automat[a + 4, b + 7].reaction = cars[i].passengers_reaction_time;
                                 automat[a + 4, b + 7].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
                                 break;
 
                             case 5:
                                 automat[a - 1, b + 3].setState(1);
-                                automat[a - 1, b + 3].panic = random.Next(0, 30);
+                                automat[a - 1, b + 3].panic = random.Next(50, 75);
                                 automat[a - 1, b + 3].reaction = cars[i].passengers_reaction_time;
                                 automat[a - 1, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
 
                                 automat[a + 4, b + 3].setState(1);
-                                automat[a + 4, b + 3].panic = random.Next(0, 30);
+                                automat[a + 4, b + 3].panic = random.Next(50, 75);
                                 automat[a + 4, b + 3].reaction = cars[i].passengers_reaction_time;
                                 automat[a + 4, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
 
                                 automat[a - 1, b + 7].setState(1);
-                                automat[a - 1, b + 7].panic = random.Next(0, 30);
+                                automat[a - 1, b + 7].panic = random.Next(50, 75);
                                 automat[a - 1, b + 7].reaction = cars[i].passengers_reaction_time;
                                 automat[a - 1, b + 7].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
 
                                 automat[a + 4, b + 7].setState(1);
-                                automat[a + 4, b + 7].panic = random.Next(0, 30);
+                                automat[a + 4, b + 7].panic = random.Next(50, 75);
                                 automat[a + 4, b + 7].reaction = cars[i].passengers_reaction_time;
                                 automat[a + 4, b + 7].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
 
                                 automat[a + 4, b + 9].setState(1);
-                                automat[a + 4, b + 9].panic = random.Next(0, 30);
+                                automat[a + 4, b + 9].panic = random.Next(50, 75);
                                 automat[a + 4, b + 9].reaction = cars[i].passengers_reaction_time;
                                 automat[a + 4, b + 9].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
                                 break;
@@ -290,18 +290,18 @@ namespace TunnelEvacuationV1
                         {
                             case 1:
                                 automat[a - 1, b].setState(1);
-                                automat[a - 1, b].panic = random.Next(0, 30);
+                                automat[a - 1, b].panic = random.Next(25, 50);
                                 automat[a - 1, b].reaction = bikes[i].passengers_reaction_time;
                                 automat[a - 1, b].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
                                 break;
                             case 2:
                                 automat[a - 1, b].setState(1);
-                                automat[a - 1, b].panic = random.Next(0, 30);
+                                automat[a - 1, b].panic = random.Next(25, 50);
                                 automat[a - 1, b].reaction = bikes[i].passengers_reaction_time;
                                 automat[a - 1, b].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
 
                                 automat[a + 2, b].setState(1);
-                                automat[a + 2, b].panic = random.Next(0, 30);
+                                automat[a + 2, b].panic = random.Next(25, 50);
                                 automat[a + 2, b].reaction = bikes[i].passengers_reaction_time;
                                 automat[a + 2, b].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
                                 break;
@@ -1226,13 +1226,13 @@ namespace TunnelEvacuationV1
                             }
 
                             panic_chance = random.Next(0,100);
-                            if (panic_chance < 30)
+                            if (panic_chance < 20)
                                 automat[next_x, next_y].panic += 1;
                         }
                         else
                         {
                             panic_chance = random.Next(0, 100);
-                            if (panic_chance < 30)
+                            if (panic_chance < 20)
                                 automat[j, k].panic += 1;
                         }
                     }
