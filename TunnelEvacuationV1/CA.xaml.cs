@@ -108,20 +108,20 @@ namespace TunnelEvacuationV1
                         {
                             case 1:
                                 automat[a - 1, b + 5].setState(1);
-                                automat[a - 1, b + 5].panic = random.Next(50, 75);
+                                automat[a - 1, b + 5].panic = random.Next(0,10);
                                 automat[a - 1, b + 5].reaction = tirs[i].passengers_reaction_time;
-                                automat[a - 1, b + 5].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                automat[a - 1, b + 5].speed = random.Next(2, 4);
                                 break;
                             case 2:
                                 automat[a - 1, b + 5].setState(1);
-                                automat[a - 1, b + 5].panic = random.Next(50, 75);
+                                automat[a - 1, b + 5].panic = random.Next(0, 10);
                                 automat[a - 1, b + 5].reaction = tirs[i].passengers_reaction_time;
-                                automat[a - 1, b + 5].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                automat[a - 1, b + 5].speed =random.Next(2, 4);
 
                                 automat[a + 6, b + 5].setState(1);
-                                automat[a + 6, b + 5].panic = random.Next(50, 75);
+                                automat[a + 6, b + 5].panic = random.Next(0, 10);
                                 automat[a + 6, b + 5].reaction = tirs[i].passengers_reaction_time;
-                                automat[a + 6, b + 5].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                automat[a + 6, b + 5].speed = random.Next(2, 4);
                                 break;
                         }
 
@@ -164,88 +164,88 @@ namespace TunnelEvacuationV1
                         {
                             case 1:
                                 automat[a - 1, b + 3].setState(1);
-                                automat[a - 1, b + 3].panic = random.Next(50, 75);
+                                automat[a - 1, b + 3].panic = random.Next(0, 10);
                                 automat[a - 1, b + 3].reaction = cars[i].passengers_reaction_time;
-                                automat[a - 1, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
-                                break;
+                                automat[a - 1, b + 3].speed = random.Next(2, 4);
+                                        break;
 
                             case 2:
                                 automat[a - 1, b + 3].setState(1);
-                                automat[a - 1, b + 3].panic = random.Next(50, 75);
+                                automat[a - 1, b + 3].panic = random.Next(0, 10);
                                 automat[a - 1, b + 3].reaction = cars[i].passengers_reaction_time;
-                                automat[a - 1, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                automat[a - 1, b + 3].speed = random.Next(2, 4);
 
-                                automat[a + 4, b + 3].setState(1);
-                                automat[a + 4, b + 3].panic = random.Next(50, 75);
+                                        automat[a + 4, b + 3].setState(1);
+                                automat[a + 4, b + 3].panic = random.Next(0, 10);
                                 automat[a + 4, b + 3].reaction = cars[i].passengers_reaction_time;
-                                automat[a + 4, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
-                                break;
+                                automat[a + 4, b + 3].speed = random.Next(2, 4);
+                                        break;
 
                             case 3:
                                 automat[a - 1, b + 3].setState(1);
-                                automat[a - 1, b + 3].panic = random.Next(50, 75);
+                                automat[a - 1, b + 3].panic = random.Next(0, 10);
                                 automat[a - 1, b + 3].reaction = cars[i].passengers_reaction_time;
-                                automat[a - 1, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                automat[a - 1, b + 3].speed = random.Next(2, 4);
 
-                                automat[a + 4, b + 3].setState(1);
-                                automat[a + 4, b + 3].panic = random.Next(50, 75);
+                                        automat[a + 4, b + 3].setState(1);
+                                automat[a + 4, b + 3].panic = random.Next(0, 10);
                                 automat[a + 4, b + 3].reaction = cars[i].passengers_reaction_time;
-                                automat[a + 4, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                automat[a + 4, b + 3].speed = random.Next(2, 4);
 
-                                automat[a - 1, b + 7].setState(1);
-                                automat[a - 1, b + 7].panic = random.Next(50, 75);
+                                        automat[a - 1, b + 7].setState(1);
+                                automat[a - 1, b + 7].panic = random.Next(0, 10);
                                 automat[a - 1, b + 7].reaction = cars[i].passengers_reaction_time;
-                                automat[a - 1, b + 7].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
-                                break;
+                                automat[a - 1, b + 7].speed = random.Next(2, 4);
+                                        break;
 
                             case 4:
                                 automat[a - 1, b + 3].setState(1);
-                                automat[a - 1, b + 3].panic = random.Next(50, 75);
+                                automat[a - 1, b + 3].panic = random.Next(0, 10);
                                 automat[a - 1, b + 3].reaction = cars[i].passengers_reaction_time;
-                                automat[a - 1, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                automat[a - 1, b + 3].speed = random.Next(2, 4);
 
-                                automat[a + 4, b + 3].setState(1);
-                                automat[a + 4, b + 3].panic = random.Next(50, 75);
+                                        automat[a + 4, b + 3].setState(1);
+                                automat[a + 4, b + 3].panic = random.Next(0, 10);
                                 automat[a + 4, b + 3].reaction = cars[i].passengers_reaction_time;
-                                automat[a + 4, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                automat[a + 4, b + 3].speed = random.Next(2, 4);
 
-                                automat[a - 1, b + 7].setState(1);
-                                automat[a - 1, b + 7].panic = random.Next(50, 75);
+                                        automat[a - 1, b + 7].setState(1);
+                                automat[a - 1, b + 7].panic = random.Next(0, 10);
                                 automat[a - 1, b + 7].reaction = cars[i].passengers_reaction_time;
-                                automat[a - 1, b + 7].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                automat[a - 1, b + 7].speed = random.Next(2, 4);
 
-                                automat[a + 4, b + 7].setState(1);
-                                automat[a + 4, b + 7].panic = random.Next(50, 75);
+                                        automat[a + 4, b + 7].setState(1);
+                                automat[a + 4, b + 7].panic = random.Next(0, 10);
                                 automat[a + 4, b + 7].reaction = cars[i].passengers_reaction_time;
-                                automat[a + 4, b + 7].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
-                                break;
+                                automat[a + 4, b + 7].speed = random.Next(2, 4);
+                                        break;
 
                             case 5:
                                 automat[a - 1, b + 3].setState(1);
-                                automat[a - 1, b + 3].panic = random.Next(50, 75);
+                                automat[a - 1, b + 3].panic = random.Next(0, 10);
                                 automat[a - 1, b + 3].reaction = cars[i].passengers_reaction_time;
-                                automat[a - 1, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                automat[a - 1, b + 3].speed = random.Next(2, 4);
 
-                                automat[a + 4, b + 3].setState(1);
-                                automat[a + 4, b + 3].panic = random.Next(50, 75);
+                                        automat[a + 4, b + 3].setState(1);
+                                automat[a + 4, b + 3].panic = random.Next(0, 10);
                                 automat[a + 4, b + 3].reaction = cars[i].passengers_reaction_time;
-                                automat[a + 4, b + 3].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                automat[a + 4, b + 3].speed = random.Next(2, 4);
 
-                                automat[a - 1, b + 7].setState(1);
-                                automat[a - 1, b + 7].panic = random.Next(50, 75);
+                                        automat[a - 1, b + 7].setState(1);
+                                automat[a - 1, b + 7].panic = random.Next(0, 10);
                                 automat[a - 1, b + 7].reaction = cars[i].passengers_reaction_time;
-                                automat[a - 1, b + 7].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                automat[a - 1, b + 7].speed = random.Next(2, 4);
 
-                                automat[a + 4, b + 7].setState(1);
-                                automat[a + 4, b + 7].panic = random.Next(50, 75);
+                                        automat[a + 4, b + 7].setState(1);
+                                automat[a + 4, b + 7].panic = random.Next(0, 10);
                                 automat[a + 4, b + 7].reaction = cars[i].passengers_reaction_time;
-                                automat[a + 4, b + 7].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                automat[a + 4, b + 7].speed = random.Next(2, 4);
 
-                                automat[a + 4, b + 9].setState(1);
-                                automat[a + 4, b + 9].panic = random.Next(50, 75);
+                                        automat[a + 4, b + 9].setState(1);
+                                automat[a + 4, b + 9].panic = random.Next(0, 10);
                                 automat[a + 4, b + 9].reaction = cars[i].passengers_reaction_time;
-                                automat[a + 4, b + 9].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
-                                break;
+                                automat[a + 4, b + 9].speed = random.Next(2, 4);
+                                        break;
 
 
                         }
@@ -290,21 +290,21 @@ namespace TunnelEvacuationV1
                         {
                             case 1:
                                 automat[a - 1, b].setState(1);
-                                automat[a - 1, b].panic = random.Next(25, 50);
+                                automat[a - 1, b].panic = random.Next(0, 10);
                                 automat[a - 1, b].reaction = bikes[i].passengers_reaction_time;
-                                automat[a - 1, b].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
-                                break;
+                                automat[a - 1, b].speed = random.Next(2, 4);
+                                        break;
                             case 2:
                                 automat[a - 1, b].setState(1);
-                                automat[a - 1, b].panic = random.Next(25, 50);
+                                automat[a - 1, b].panic = random.Next(0,10);
                                 automat[a - 1, b].reaction = bikes[i].passengers_reaction_time;
-                                automat[a - 1, b].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                automat[a - 1, b].speed = random.Next(2, 4);
 
-                                automat[a + 2, b].setState(1);
-                                automat[a + 2, b].panic = random.Next(25, 50);
+                                        automat[a + 2, b].setState(1);
+                                automat[a + 2, b].panic = random.Next(0, 10);
                                 automat[a + 2, b].reaction = bikes[i].passengers_reaction_time;
-                                automat[a + 2, b].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
-                                break;
+                                automat[a + 2, b].speed = random.Next(2, 4);
+                                        break;
                         }
                         break;
                     }
@@ -341,9 +341,9 @@ namespace TunnelEvacuationV1
                             if(automat[a - 1-n, b + 5+m].getState()==0)
                             {
                                 automat[a - 1 - n, b + 5 + m].setState(1);
-                                automat[a - 1 - n, b + 5 + m].panic = random.Next(0, 30);
+                                automat[a - 1 - n, b + 5 + m].panic = random.Next(0, 18);
                                 automat[a - 1 - n, b + 5 + m].reaction = bus.passengers_reaction_time;
-                                automat[a - 1 - n, b + 5 + m].speed = (random.NextDouble() * (1.5 - 1.1) + 1.1);
+                                automat[a - 1 - n, b + 5 + m].speed = random.Next(2, 5);
                                 break;
                             }
                         }
@@ -411,7 +411,8 @@ namespace TunnelEvacuationV1
                 DataBase.current_time++;
             }
 
-            if (DataBase.current_time - 1 == DataBase.evac_time*2)
+           // if (DataBase.current_time - 1 == DataBase.evac_time*2)
+            if(pedestrian_left == 0)
             {
                 start = false;
                 if (!was_shown)
@@ -922,6 +923,17 @@ namespace TunnelEvacuationV1
         public void full_panic(int j, int k, Random r)
         {
             int loop_counter = 0;
+
+            if ((r.Next(0, 100) - check_neighberhood(j, k)) < 18)
+            {
+
+                next_x = j;
+                next_y = k;
+                return;
+            }
+
+
+
             while (true)
             {
                 switch (r.Next(0, 9))
@@ -977,13 +989,53 @@ namespace TunnelEvacuationV1
                 ++loop_counter;
             }
         }
+      
+        public int check_neighberhood(int j, int k)
+        {
+            int sum = 0;
+            if (automat[j - 1, k - 1].getState() == 1)
+            {
+                sum++;
+            }
+            if (automat[j, k - 1].getState() == 1)
+            {
+                sum++;
+            }
+            if (automat[j, k + 1].getState() == 1)
+            {
+                sum++;
+            }
+            if (automat[j + 1, k + 1].getState() == 1)
+            {
+                sum++;
+            }
+            if (automat[j + 1, k].getState() == 1)
+            {
+                sum++;
+            }
+            if (automat[j + 1, k - 1].getState() == 1)
+            {
+                sum++;
+            }
+            if (automat[j - 1, k + 1].getState() == 1)
+            {
+                sum++;
+            }
+            if (automat[j - 1, k].getState() == 1)
+            {
+                sum++;
+            }
+
+            return sum;
+        }
         public void find_min(int j, int k)
         {
-            next_x = j - 1;
-            next_y = k - 1;
+
             double min = 1000000000;
             int rand_check;
-            double[] dist_array = { automat[j - 1, k - 1].nearest_exit, automat[j, k - 1].nearest_exit, automat[j, k + 1].nearest_exit, automat[j + 1, k + 1].nearest_exit, automat[j + 1, k].nearest_exit, automat[j + 1, k - 1].nearest_exit, automat[j - 1, k + 1].nearest_exit, automat[j - 1, k].nearest_exit };
+            int block_check;
+            int neighbors_no;
+            //double[] dist_array = { automat[j - 1, k - 1].nearest_exit, automat[j, k - 1].nearest_exit, automat[j, k + 1].nearest_exit, automat[j + 1, k + 1].nearest_exit, automat[j + 1, k].nearest_exit, automat[j + 1, k - 1].nearest_exit, automat[j - 1, k + 1].nearest_exit, automat[j - 1, k].nearest_exit };
             /*
                 0: j-1, k-1
                 1: j  , k-1
@@ -995,10 +1047,16 @@ namespace TunnelEvacuationV1
                 7: j-1, k
             */
 
-
+            if(j<1 || k < 1)
+            {
+                next_x = j;
+                next_y = k;
+                return;
+            }
 
 
             rand_check = random.Next(0, 100);
+            block_check = random.Next(0, 100);
             if (automat[j, k].panic <= 10)
             {
                     min_distance(j, k);
@@ -1015,7 +1073,8 @@ namespace TunnelEvacuationV1
                 }
                 else
                 {
-                    full_panic(j, k, random);
+                   // if((block_check - check_neighberhood(j,k))>18)
+                        full_panic(j, k, random);
                 }
             }
             else if (automat[j, k].panic <= 30)
@@ -1030,7 +1089,8 @@ namespace TunnelEvacuationV1
                 }
                 else
                 {
-                    full_panic(j, k, random);
+                   // if ((block_check - check_neighberhood(j, k)) > 18)
+                        full_panic(j, k, random);
                 }
             }
             else if (automat[j, k].panic <= 40)
@@ -1046,7 +1106,8 @@ namespace TunnelEvacuationV1
                 }
                 else
                 {
-                    full_panic(j, k, random);
+                  //  if ((block_check - check_neighberhood(j, k)) > 18)
+                        full_panic(j, k, random);
                 }
             }
             else if (automat[j, k].panic <= 50)
@@ -1060,8 +1121,8 @@ namespace TunnelEvacuationV1
                     half_reasonable(j, k, random);
                 }
                 else
-                {
-                    full_panic(j, k, random);
+                {//  if ((block_check - check_neighberhood(j, k)) > 18)
+                        full_panic(j, k, random);
                 }
             }
             else if (automat[j, k].panic <= 60)
@@ -1076,12 +1137,12 @@ namespace TunnelEvacuationV1
                 }
                 else
                 {
-                    full_panic(j, k, random);
+                        full_panic(j, k, random);
                 }
             }
             else if (automat[j, k].panic <= 70)
             {
-                if (rand_check < 40)
+                if (rand_check < 50)
                 {
                     min_distance(j, k);
                 }
@@ -1091,7 +1152,8 @@ namespace TunnelEvacuationV1
                 }
                 else
                 {
-                    full_panic(j, k, random);
+                   // if ((block_check - check_neighberhood(j, k)) > 18)
+                        full_panic(j, k, random);
                 }
             }
             else if (automat[j, k].panic <= 80)
@@ -1100,31 +1162,49 @@ namespace TunnelEvacuationV1
                 {
                     min_distance(j, k);
                 }
-                else if (rand_check < 35)
+                else if (rand_check < 45)
                 {
                     half_reasonable(j, k, random);
                 }
                 else
                 {
-                    full_panic(j, k, random);
+                  //  if ((block_check - check_neighberhood(j, k)) > 18)
+                        full_panic(j, k, random);
                 }
             }
             else if (automat[j, k].panic <= 90)
+            {
+                if (rand_check < 30)
+                {
+                    min_distance(j, k);
+                }
+                else if (rand_check < 45)
+                {
+                    half_reasonable(j, k, random);
+                }
+                else
+                {
+                 //   if ((block_check - check_neighberhood(j, k)) > 18)
+                        full_panic(j, k, random);
+                }
+            }
+            else if (automat[j, k].panic <= 99)
             {
                 if (rand_check < 20)
                 {
                     min_distance(j, k);
                 }
-                else if (rand_check < 36)
+                else if (rand_check < 45)
                 {
                     half_reasonable(j, k, random);
                 }
                 else
                 {
-                    full_panic(j, k, random);
+                  //  if ((block_check - check_neighberhood(j, k)) > 18)
+                        full_panic(j, k, random);
                 }
             }
-            else if (automat[j, k].panic <= 99)
+            else 
             {
                 if (rand_check < 10)
                 {
@@ -1136,22 +1216,8 @@ namespace TunnelEvacuationV1
                 }
                 else
                 {
-                    full_panic(j, k, random);
-                }
-            }
-            else 
-            {
-                if (rand_check < 0)
-                {
-                    min_distance(j, k);
-                }
-                else if (rand_check < 20)
-                {
-                    half_reasonable(j, k, random);
-                }
-                else
-                {
-                    full_panic(j, k, random);
+                  //  if ((block_check - check_neighberhood(j, k)) > 18)
+                        full_panic(j, k, random);
                 }
             }
 
@@ -1204,6 +1270,8 @@ namespace TunnelEvacuationV1
         void Sim_move()
         {
             int panic_chance;
+            int speed_temp;
+            int temp_j, temp_k;
             for(int j=1; j<29; ++j)
             {
                 for(int k=1; k< DataBase.automat_size-1; ++k)
@@ -1212,39 +1280,70 @@ namespace TunnelEvacuationV1
                     {
                         if (!(automat[j, k].reaction >= DataBase.current_time))
                         {
-                            find_min(j, k);
-                            if (automat[next_x, next_y].getState() == 3)
+                            speed_temp = automat[j, k].speed;
+                            temp_j = j;
+                            temp_k = k;
+
+
+                            while (speed_temp > 0)
                             {
-                                automat[j, k].zero_cell();
-                                pedestrian_left -= 1;
-                                Counter_pedestrian.Text = "Pedestrians: " + pedestrian_left.ToString() + "/" + DataBase.pedestrian_counter.ToString();
-                            }
-                            else
-                            {
-                                if(next_y != k || next_x != j)
-                                    automat[j, k].copy_cell(automat[next_x, next_y]);
+                                find_min(temp_j, temp_k);
+                                if (next_x >= 0 && next_y >= 0)
+                                {
+                                    if (automat[next_x, next_y].getState() == 3)
+                                    {
+                                        automat[temp_j, temp_k].zero_cell();
+                                        pedestrian_left -= 1;
+                                        Counter_pedestrian.Text = "Pedestrians: " + pedestrian_left.ToString() + "/" + DataBase.pedestrian_counter.ToString();
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        if (next_y != temp_k || next_x != temp_j)
+                                            automat[temp_j, temp_k].copy_cell(automat[next_x, next_y]);
+
+                                    }
+                                }
+                                else
+                                    break;
+                                temp_j = next_x;
+                                temp_k = next_y;
+                                --speed_temp;
                             }
 
-                            panic_chance = random.Next(0,100);
-                            if (panic_chance < 20)
-                                automat[next_x, next_y].panic += 1;
+                            if (next_x >= 0 && next_y >= 0)
+                            {
+                                panic_chance = random.Next(0, 100);
+                                if (panic_chance < 11)
+                                    automat[next_x, next_y].panic += 1;
+
+                                panic_chance = random.Next(0, 100);
+                                if (panic_chance < 11 && automat[next_x, next_y].speed > 2)
+                                    automat[next_x, next_y].speed -= 1;
+                            }
+
                         }
                         else
                         {
                             panic_chance = random.Next(0, 100);
-                            if (panic_chance < 20)
+                            if (panic_chance < 11)
                                 automat[j, k].panic += 1;
+
                         }
                     }
                 }
             }
+            //pedestrian_left = 0;
             for (int j = 1; j < 29; ++j)
             {
                 for (int k = 1; k < DataBase.automat_size - 1; ++k)
                 {
                     automat[j, k].moved = false;
+                   // if (automat[j, k].getState() == 1)
+                   //     pedestrian_left++;
                 }
             }
+           // Counter_pedestrian.Text = "Pedestrians: " + pedestrian_left.ToString() + "/" + DataBase.pedestrian_counter.ToString();
 
             Console.WriteLine("Turn: "+ DataBase.current_time + "/"+ DataBase.evac_time );
             Update_Net();

@@ -73,11 +73,11 @@ namespace TunnelEvacuationV1
             switch ((int)vehicle_type)
             {
                 case 3:
-                    passengers_reaction_time = 31;
+                    passengers_reaction_time = 110;
                     break;
                 default:
                 var rand = new Random();
-                passengers_reaction_time = rand.Next(30, 120);
+                passengers_reaction_time = rand.Next(75, 120);
                     break;
             }
         }

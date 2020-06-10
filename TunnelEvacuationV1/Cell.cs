@@ -9,7 +9,7 @@ namespace TunnelEvacuationV1
     class Cell
     {
         public int panic; //0-100
-        public double speed; // 0.8 / 1.2 / 1.6 / 2.0 / 2.4 / 2.8 / 3.2 / 3.6 / 4.0
+        public int speed; // 2 - 4; 0.8 - 1.6 m/s
         public int state; // 0 - pusta, 1 - pieszy, 2 - przeszkoda 3 - wyjście
         public int reaction; //czas reakcji, chwilowo w turach automatu
 
@@ -18,8 +18,9 @@ namespace TunnelEvacuationV1
 
         public bool moved; //czy komórka poruszyła się w danej turze
 
+        public double smoke_level; //0 lub 1
 
-        public Cell(int p, double sp, int st)
+        public Cell(int p, int sp, int st)
         {
             panic = p;
             speed = sp;
